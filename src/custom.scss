@@ -1,0 +1,23 @@
+// Override Bootstrap Theme Variables
+$primary: #9F5965;  // Main brand color
+$secondary: #CB7A89;
+$modal-content-bg: #ffffff;
+$card-border-color: hsl(0, 0%, 87%);
+
+$color1: #9F5965;
+$color2:  #CB7A89;
+$color3: #393637;
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Great+Vibes&family=Playfair+Display&display=swap');
+
+// Import Bootstrap SASS
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+$font-family-base: 'DM Sans', sans-serif;
+$headings-font-family: 'Playfair Display', serif;
+$font-family-decorative: 'Great Vibes', cursive;
+
+
+// Then import Bootstrap after the overrides
+@import "../node_modules/bootstrap/scss/bootstrap";
