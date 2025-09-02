@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Button, Offcanvas } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
@@ -143,10 +144,18 @@ const AppNavbar = ({ onLogout }) => {
 
           <Offcanvas.Body>
             <Nav className="mx-auto justify-content-center align-items-center">
-              <Nav.Link href="/AboutUsPage">O Nas</Nav.Link>
-              <Nav.Link href="/contact">Kontakt</Nav.Link>
-              <Nav.Link href="/news">Aktualności</Nav.Link>
-              <Nav.Link href="/TypesOfMeetings">Oferta</Nav.Link>
+              <Nav.Link as={Link} to="/AboutUsPage">
+                O Nas
+              </Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+                Kontakt
+              </Nav.Link>
+              <Nav.Link as={Link} to="/news">
+                Aktualności
+              </Nav.Link>
+              <Nav.Link as={Link} to="/TypesOfMeetings">
+                Oferta
+              </Nav.Link>
             </Nav>
             <HeaderSocialDrawer>
               <SocialLinks
