@@ -244,8 +244,8 @@ const CalendarView = () => {
         endAccessor="end"
         defaultView="week"
         style={{ height: "80vh" }}
-        min={new Date(1970, 1, 1, 8, 0)}
-        max={new Date(1970, 1, 1, 20, 0)}
+        min={new Date(1970, 1, 1, 10, 0)}
+        max={new Date(1970, 1, 1, 22, 0)}
         onSelectEvent={handleEventClick}
         formats={{
           timeGutterFormat: (date, culture, localizer) =>
