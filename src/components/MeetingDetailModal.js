@@ -142,7 +142,7 @@ const InstructorTabContent = ({ instructorId }) => {
       {data.imageUrl && (
         <div className="text-center mb-3">
           <Image
-            src={`http://localhost:5077/${data.imageUrl}`}
+            src={`${process.env.REACT_APP_API_URL}/${data.imageUrl}`}
             alt={data.name}
             fluid
             style={{
