@@ -93,7 +93,9 @@ const HighlightedNews = () => {
                   {article.imageUrl && (
                     <StyledCardImg
                       $imgHeight="300px"
-                      src={`http://localhost:5077/${article.imageUrl}`}
+                      src={`${import.meta.env.VITE_API_URL}/${
+                        article.imageUrl
+                      }`}
                       alt={article.title}
                     />
                   )}
@@ -125,7 +127,7 @@ const HighlightedNews = () => {
                 {article.imageUrl && (
                   <StyledCardImg
                     $imgHeight="300px"
-                    src={`http://localhost:5077/${article.imageUrl}`}
+                    src={`${import.meta.env.VITE_API_URL}/${article.imageUrl}`}
                     alt={article.title}
                   />
                 )}
