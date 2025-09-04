@@ -93,9 +93,7 @@ const HighlightedNews = () => {
                   {article.imageUrl && (
                     <StyledCardImg
                       $imgHeight="300px"
-                      src={`${import.meta.env.VITE_API_URL}/${
-                        article.imageUrl
-                      }`}
+                      src={`${process.env.REACT_APP_API_URL}/${article.imageUrl}`}
                       alt={article.title}
                     />
                   )}
@@ -127,7 +125,7 @@ const HighlightedNews = () => {
                 {article.imageUrl && (
                   <StyledCardImg
                     $imgHeight="300px"
-                    src={`${import.meta.env.VITE_API_URL}/${article.imageUrl}`}
+                    src={`${process.env.REACT_APP_API_URL}/${article.imageUrl}`}
                     alt={article.title}
                   />
                 )}
