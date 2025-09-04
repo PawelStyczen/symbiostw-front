@@ -35,7 +35,7 @@ const VideoOverlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) =>
-    hexToRgba(theme.colors.heroBackground, 0.8)};
+    hexToRgba(theme.colors.heroBackground, 0.85)};
   backdrop-filter: blur(5px); // blur effect
   z-index: -1;
 `;
@@ -191,7 +191,7 @@ const HomePage = () => {
   return (
     <div>
       <VideoBackground autoPlay loop muted playsInline>
-        <source src="/videos/hero-background.mp4" type="video/mp4" />
+        <source src="/videos/symbio_roll.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </VideoBackground>
       <VideoOverlay />
