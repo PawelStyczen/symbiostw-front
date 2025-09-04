@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container, Button, Offcanvas } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 import { useTheme } from "./ThemeProvider";
 import styled from "styled-components";
@@ -42,7 +41,6 @@ const GlassNavbar = styled(Navbar)`
     color: ${({ theme }) => theme.colors.secondary} !important;
   }
 
-  // Make header compact on mobile
   @media (max-width: 576px) {
     padding-top: 0.35rem;
     padding-bottom: 0.35rem;
@@ -57,7 +55,6 @@ const StyledLogo = styled(Logo)`
   }
 `;
 
-// Keep social icons visible in the header on mobile
 const HeaderSocial = styled.div`
   display: flex;
   align-items: center;
@@ -69,7 +66,7 @@ const HeaderSocial = styled.div`
     margin-right: 1rem;
   }
   @media (max-width: 768px) {
-    display: none; // 👈 hide on screens smaller than 768px
+    display: none;
   }
 `;
 
@@ -82,11 +79,10 @@ const HeaderSocialDrawer = styled.div`
   margin-right: 0.5rem;
 
   @media (min-width: 992px) {
-    display: none; // 👈 hide on screens larger than 992px
+    display: none;
   }
 `;
 
-// Buttons in drawer: natural sizing, not stretched
 const DrawerButton = styled(Button)`
   border-radius: 999px;
   width: auto;
@@ -102,13 +98,18 @@ const AppNavbar = ({ onLogout }) => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  // A unique id for the offcanvas instance
+  const handleNavClick = (path) => {
+    navigate(path);
+    setShowOffcanvas(false); // 👈 Auto-close drawer
+  };
+
   const offId = "main-nav-offcanvas";
 
   return (
@@ -121,7 +122,6 @@ const AppNavbar = ({ onLogout }) => {
           symbio
         </Navbar.Brand>
 
-        {/* social icons stay in the header even on mobile */}
         <HeaderSocial>
           <SocialLinks
             className="d-none d-lg-inline"
@@ -132,9 +132,10 @@ const AppNavbar = ({ onLogout }) => {
           />
         </HeaderSocial>
 
-        {/* OFFCANVAS DRAWER ON MOBILE, REGULAR COLLAPSE ON DESKTOP */}
         <Navbar.Offcanvas
           id={offId}
+          show={showOffcanvas}
+          onHide={() => setShowOffcanvas(false)}
           aria-labelledby={`${offId}-label`}
           placement="end"
         >
@@ -144,19 +145,23 @@ const AppNavbar = ({ onLogout }) => {
 
           <Offcanvas.Body>
             <Nav className="mx-auto justify-content-center align-items-center">
-              <Nav.Link as={Link} to="/AboutUsPage">
+              <Nav.Link onClick={() => handleNavClick("/HomePage")}>
+                Strona Główna
+              </Nav.Link>
+              <Nav.Link onClick={() => handleNavClick("/AboutUsPage")}>
                 O Nas
               </Nav.Link>
-              <Nav.Link as={Link} to="/contact">
+              <Nav.Link onClick={() => handleNavClick("/contact")}>
                 Kontakt
               </Nav.Link>
-              <Nav.Link as={Link} to="/news">
+              <Nav.Link onClick={() => handleNavClick("/news")}>
                 Aktualności
               </Nav.Link>
-              <Nav.Link as={Link} to="/TypesOfMeetings">
+              <Nav.Link onClick={() => handleNavClick("/TypesOfMeetings")}>
                 Oferta
               </Nav.Link>
             </Nav>
+
             <HeaderSocialDrawer>
               <SocialLinks
                 className="d-none d-lg-inline"
@@ -166,9 +171,9 @@ const AppNavbar = ({ onLogout }) => {
                 size={24}
               />
             </HeaderSocialDrawer>
-            {/* Actions: stacked on mobile, inline on desktop */}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
+
         <div className="d-flex gap-2 flex-row flex-lg-row ms-lg-3">
           <DrawerButton variant="primary" onClick={() => navigate("/newhere")}>
             Jestem tu nowy
@@ -177,7 +182,11 @@ const AppNavbar = ({ onLogout }) => {
             Grafik
           </DrawerButton>
         </div>
-        <Navbar.Toggle aria-controls={offId} />
+
+        <Navbar.Toggle
+          aria-controls={offId}
+          onClick={() => setShowOffcanvas(true)}
+        />
       </Container>
     </GlassNavbar>
   );
