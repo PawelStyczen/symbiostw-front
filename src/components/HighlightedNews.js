@@ -85,7 +85,7 @@ const HighlightedNews = () => {
     <div className="container mt-0">
       <NewsWrapper>
         <StyledTitle className="text-center mb-4">Aktualności</StyledTitle>
-        {news.length > 3 ? (
+        {news.length > 2 ? (
           <StyledCarousel slidesToShow={3}>
             {news.map((article) => (
               <div key={article.id}>
@@ -121,12 +121,23 @@ const HighlightedNews = () => {
         ) : (
           <CardGrid>
             {news.map((article) => (
-              <StyledCard key={article.id}>
+              <StyledCard
+                $horizontal
+                $height="350px"
+                key={article.id}
+                className="mb-4"
+              >
                 {article.imageUrl && (
                   <StyledCardImg
-                    $imgHeight="300px"
+                    variant="top"
                     src={`${process.env.REACT_APP_API_URL}/${article.imageUrl}`}
                     alt={article.title}
+                    style={{
+                      maxHeight: "500px",
+                      width: "30%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }}
                   />
                 )}
                 <StyledCard.Body>
