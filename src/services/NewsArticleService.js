@@ -64,7 +64,11 @@ export const fetchUserComments = async () => {
   }
 };
 export const fetchHighlightedNews = async () => {
-  const response = await api.get("/api/Public/PublicNewsArticle/highlighted");
-  if (!response.ok) throw new Error("Failed to fetch highlighted news");
-  return response.json();
+  try {
+    const response = await api.get("/api/Public/PublicNewsArticle/highlighted");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    throw error;
+  }
 };
