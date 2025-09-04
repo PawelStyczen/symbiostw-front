@@ -111,7 +111,7 @@ const NewsArticleDetailsPage = () => {
 
       {article.imageUrl && (
         <NewsImage
-          src={`http://localhost:5077/${article.imageUrl}`}
+          src={`${process.env.REACT_APP_API_URL}/${article.imageUrl}`}
           alt={article.title}
           fluid
         />

@@ -96,7 +96,7 @@ const TypeOfMeetingPage = () => {
 
                   {/* 🖼️ Image */}
                   <StyledCardImg
-                    src={`http://localhost:5077/${meeting.imageUrl}`}
+                    src={`${process.env.REACT_APP_API_URL}/${meeting.imageUrl}`}
                     alt={meeting.name}
                     className="meeting-img"
                     style={{

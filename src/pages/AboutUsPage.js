@@ -108,7 +108,7 @@ const AboutUsPage = () => {
                     <StyledInstructorImage
                       src={
                         instructor.imageUrl
-                          ? `http://localhost:5077${instructor.imageUrl}`
+                          ? `${process.env.REACT_APP_API_URL}/${instructor.imageUrl}`
                           : "/placeholder.jpg"
                       }
                       alt={instructor.name}

@@ -41,7 +41,7 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
             {meeting.imageUrl && (
               <div className="text-center mb-3">
                 <Image
-                  src={`http://localhost:5077/${meeting.imageUrl}`}
+                  src={`${process.env.REACT_APP_API_URL}/${meeting.imageUrl}`}
                   alt={meeting.title}
                   fluid
                   style={{

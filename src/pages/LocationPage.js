@@ -73,7 +73,7 @@ const LocationPage = () => {
                 {location.imageUrl && (
                   <StyledCard.Img
                     variant="top"
-                    src={`http://localhost:5077/${location.imageUrl}`}
+                    src={`${process.env.REACT_APP_API_URL}/${location.imageUrl}`}
                     alt={location.name}
                     style={{ height: "200px", objectFit: "cover" }}
                   />

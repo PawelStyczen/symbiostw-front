@@ -79,7 +79,7 @@ const InstructorDetailsModal = ({ show, onHide, instructorId, instructor }) => {
         {finalInstructor?.imageUrl && (
           <div className="text-center mb-3">
             <Image
-              src={`http://localhost:5077/${finalInstructor.imageUrl}`}
+              src={`${process.env.REACT_APP_API_URL}/${finalInstructor.imageUrl}`}
               alt={finalInstructor.name}
               fluid
               style={{ maxHeight: "600px", objectFit: "cover", width: "100%" }}

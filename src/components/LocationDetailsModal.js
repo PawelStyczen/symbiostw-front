@@ -47,7 +47,7 @@ const LocationDetailsModal = ({ show, onHide, locationId, location }) => {
         {finalLocation?.imageUrl && (
           <div className="text-center mb-3">
             <Image
-              src={`http://localhost:5077/${finalLocation.imageUrl}`}
+              src={`${process.env.REACT_APP_API_URL}/${finalLocation.imageUrl}`}
               alt={finalLocation.name}
               fluid
               style={{ maxHeight: "300px", objectFit: "cover" }}

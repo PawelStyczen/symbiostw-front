@@ -74,7 +74,7 @@ const HighlightedTypesOfMeetings = () => {
             <StyledCard $horizontal $height="400px">
               {type.imageUrl && (
                 <StyledCardImg
-                  src={`http://localhost:5077/${type.imageUrl}`}
+                  src={`${process.env.REACT_APP_API_URL}/${type.imageUrl}`}
                   alt={type.name}
                   $imgWidth={window.innerWidth < 768 ? "50%" : "70%"}
                 />

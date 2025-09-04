@@ -58,7 +58,7 @@ const NewsArticlesPage = () => {
           {article.imageUrl && (
             <CardImg
               variant="top"
-              src={`http://localhost:5077/${article.imageUrl}`}
+              src={`${process.env.REACT_APP_API_URL}/${article.imageUrl}`}
               alt={article.title}
               style={{
                 maxHeight: "500px",
