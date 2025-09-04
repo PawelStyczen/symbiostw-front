@@ -57,7 +57,7 @@ const TypeOfMeetingDetailsModal = ({
         {finalTypeOfMeeting?.imageUrl && (
           <div className="text-center mb-3">
             <Image
-              src={`http://localhost:5077/${finalTypeOfMeeting.imageUrl}`}
+              src={`${process.env.REACT_APP_API_URL}/${finalTypeOfMeeting.imageUrl}`}
               alt={finalTypeOfMeeting.name}
               fluid
               style={{
@@ -80,9 +80,6 @@ const TypeOfMeetingDetailsModal = ({
             style={{ marginTop: "0.5rem" }}
           />
         </div>
-        <p>
-          <strong>Cena:</strong> {finalTypeOfMeeting?.price}
-        </p>
       </Modal.Body>
       <Modal.Footer>
         <StyledButton variant="secondary" onClick={onHide}>
