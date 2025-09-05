@@ -292,7 +292,7 @@ const CalendarView = () => {
               backgroundColor,
               color,
               border: "grey 1px solid",
-              fontSize: isMobile ? "0.3rem" : "0.6rem", // 👈 smaller on mobile
+              fontSize: isMobile ? "0.4rem" : "0.6rem", // 👈 smaller on mobile
               borderRadius: "5px",
               padding: isMobile ? "2px" : "10px", // 👈 optional tighter spacing
             },
