@@ -30,7 +30,7 @@ const loadFbSdk = (locale = "en_US") => {
 
 const MessengerChat = ({
   pageId,
-  locale = "pl_PL", // change to your preferred locale
+  locale = "en_US", // change to your preferred locale
   themeColor = "#0084FF",
   loggedInGreeting = "Cześć! Jak możemy pomóc?",
   loggedOutGreeting = "Cześć! Napisz do nas tutaj.",
