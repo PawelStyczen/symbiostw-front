@@ -43,7 +43,22 @@ code {
     line-height: 1.1;
   }
 
+
+
   .rbc-time-view .rbc-allday-cell {
     font-size: 0.7rem;
   }
+}
+
+  .rbc-toolbar-label{
+    font-size: 1.3rem;
+    color:#89928d;
+    font-weight: bold;
+  }
+
+.rbc-toolbar .rbc-btn-group button.rbc-active {
+  background-color: #9F5963 !important;
+  color: white !important;
+  font-weight: bold;
+
 }

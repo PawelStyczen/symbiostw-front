@@ -16,8 +16,7 @@ export const StyledContainer = styled(Container)`
     `background-color: ${backgroundColor}; padding: 3rem; border-radius: 50px;`}
 
   @media (max-width: 768px) {
-    padding: 0rem;
-    margin-top: 3rem;
+    margin-top: 6rem;
   }
 `;
 
