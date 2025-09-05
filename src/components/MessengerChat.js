@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const MessengerChat = ({
   pageId,
-  locale = "pl_PL", // użyj polskiego
+  locale = "en_US", // użyj polskiego
   themeColor = "#9F5965",
   loggedInGreeting = "Cześć! Jak możemy pomóc?",
   loggedOutGreeting = "Cześć! Napisz do nas tutaj.",
