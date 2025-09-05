@@ -274,6 +274,7 @@ const CalendarView = () => {
         eventPropGetter={(event) => {
           const isPast = event.start < new Date();
           const isIndividualSpot = event.isIndividual; // ✅ use flag, not title check
+          const isMobile = window.innerWidth <= 768;
 
           let backgroundColor = "white";
           let color = "black";
@@ -291,9 +292,9 @@ const CalendarView = () => {
               backgroundColor,
               color,
               border: "grey 1px solid",
-              fontSize: "0.6rem",
+              fontSize: isMobile ? "0.4rem" : "0.6rem", // 👈 smaller on mobile
               borderRadius: "0px",
-              padding: "10px",
+              padding: isMobile ? "2px" : "10px", // 👈 optional tighter spacing
             },
           };
         }}

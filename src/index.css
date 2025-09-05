@@ -29,3 +29,21 @@ code {
 
 }
 
+
+@media (max-width: 768px) {
+  .rbc-time-gutter {
+    font-size: 0.7rem;
+  }
+
+  .rbc-time-content {
+    font-size: 0.7rem;
+  }
+
+  .rbc-timeslot-group {
+    line-height: 1.1;
+  }
+
+  .rbc-time-view .rbc-allday-cell {
+    font-size: 0.7rem;
+  }
+}

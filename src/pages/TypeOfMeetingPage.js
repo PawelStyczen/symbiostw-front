@@ -113,7 +113,7 @@ const TypeOfMeetingPage = () => {
 
                   <p
                     style={{
-                      fontSize: "1.2rem",
+                      fontSize: "1rem",
                       fontWeight: "100",
                     }}
                   >
