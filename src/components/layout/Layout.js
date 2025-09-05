@@ -2,7 +2,7 @@ import React from "react";
 import { StyledContainer } from "../StyledComponents";
 import AppNavbar from "./AppNavbar";
 import Footer from "./Footer";
-import MessengerChat from "../MessengerChat";
+import ContactButtons from "../ContactButtons";
 
 const Layout = ({ children, onLogout }) => {
   return (
@@ -12,7 +12,7 @@ const Layout = ({ children, onLogout }) => {
       <Footer />
 
       {/* Messenger chat (Page ID required) */}
-      <MessengerChat pageId="101786911599679" />
+      <ContactButtons pageUsername="alantanczy" phone="+48666617974" />
     </>
   );
 };
