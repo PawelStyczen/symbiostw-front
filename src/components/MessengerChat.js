@@ -21,6 +21,7 @@ const loadFbSdk = (locale = "en_US") => {
   window.fbAsyncInit = function () {
     if (window.FB) {
       window.FB.init({
+        appId: "101786911599679",
         xfbml: true,
         version: "v18.0",
       });
