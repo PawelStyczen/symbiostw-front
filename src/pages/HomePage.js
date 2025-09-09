@@ -8,6 +8,7 @@ import HighlightedNews from "../components/HighlightedNews";
 import { Link } from "react-router-dom";
 import { hexToRgba } from "../utils/colorUtils";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+
 // Full-Screen Background (Stretches Across Entire Width)
 const StyledLogo = styled(Logo)`
   width: 700px;
@@ -34,9 +35,15 @@ const VideoOverlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: ${({ theme }) =>
-    hexToRgba(theme.colors.heroBackground, 0.85)};
-  backdrop-filter: blur(5px); // blur effect
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    /* fully transparent at the very top */ rgba(0, 0, 0, 0) 0%,
+    /* stay transparent until 30% */
+      ${({ theme }) => hexToRgba(theme.colors.background, 1)} 90%
+      /* fade to solid color */
+  );
+  backdrop-filter: blur(10px);
   z-index: -1;
 `;
 

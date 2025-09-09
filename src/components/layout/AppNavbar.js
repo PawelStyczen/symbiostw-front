@@ -11,7 +11,7 @@ import SocialLinks from "../SocialLinks";
 // Glassmorphism + tiny mobile polish
 const GlassNavbar = styled(Navbar)`
   background-color: ${({ theme }) =>
-    hexToRgba(theme.colors.cardBackground, 0.5)};
+    hexToRgba(theme.colors.cardBackground, 0.8)};
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(112, 125, 115, 0.3);
