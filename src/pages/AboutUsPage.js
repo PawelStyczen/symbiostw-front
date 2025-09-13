@@ -146,7 +146,7 @@ const AboutUsPage = () => {
           <p>
             Wszystko zaczęło się w 2020 roku, gdy w Stalowej Woli narodził się
             projekt
-            <strong>Alan Tańczy</strong> – miejsce stworzone z miłości do tańca
+            <strong> Alan Tańczy</strong> – miejsce stworzone z miłości do tańca
             i potrzeby dzielenia się tą pasją z innymi. Początki były skromne:
             niewielka sala, ograniczony czas między zajęciami na studiach,
             pierwsze grupy i zajęcia dla par młodych.
@@ -160,9 +160,9 @@ const AboutUsPage = () => {
           <p>
             Po pięciu latach intensywnej pracy i nieustannego rozwoju przyszedł
             czas na nowy rozdział. Tak powstała
-            <strong>Szkoła Tańca Symbio</strong> – odpowiedź na rosnące potrzeby
-            mieszkańców Stalowej Woli. Nowa przestrzeń, nowa energia, nowa
-            jakość.
+            <strong> Szkoła Tańca Symbio</strong> – odpowiedź na rosnące
+            potrzeby mieszkańców Stalowej Woli. Nowa przestrzeń, nowa energia,
+            nowa jakość.
           </p>
         </section>
 

@@ -23,7 +23,7 @@ const ContactSection = () => {
         <Col md={3} className="d-flex flex-column justify-content-center">
           <ContactInfo>
             <br />
-            Jubilat
+            Budynek Jubilatu
             <br />
             ul.Ofiar Katynia 37
             <br />
