@@ -30,7 +30,7 @@ const ListWrapper = styled.ul`
 
 const MeetingThumb = styled.img`
   width: 30%;
-  height: 60px;
+  height: 45px;
   object-fit: cover;
   object-position: center;
   opacity: 0.6;
@@ -109,6 +109,18 @@ const HighlightedMeetings = () => {
     });
     setModalShow(true);
   };
+  const groupByWeekday = (meetings) => {
+    return meetings.reduce((acc, meeting) => {
+      const date = new Date(meeting.date);
+      const weekday = date.toLocaleDateString("pl-PL", { weekday: "long" });
+
+      if (!acc[weekday]) {
+        acc[weekday] = [];
+      }
+      acc[weekday].push(meeting);
+      return acc;
+    }, {});
+  };
 
   if (loading)
     return <Spinner animation="border" className="d-block mx-auto my-5" />;
@@ -118,6 +130,8 @@ const HighlightedMeetings = () => {
         {error}
       </Alert>
     );
+
+  const groupedMeetings = groupByWeekday(meetings);
 
   return (
     <div className="container mt-5">
@@ -130,27 +144,41 @@ const HighlightedMeetings = () => {
           Brak nadchodzących spotkań.
         </Alert>
       ) : (
-        <ListWrapper>
-          {meetings.map((meeting) => (
-            <MeetingItem
-              key={meeting.id}
-              onClick={() => handleCardClick(meeting)}
-            >
-              {meeting.imageUrl && (
-                <MeetingThumb
-                  src={`${process.env.REACT_APP_API_URL}/${meeting.imageUrl}`}
-                  alt={meeting.name}
-                />
-              )}
-              <MeetingInfo>
-                <MeetingDate>
-                  {new Date(meeting.date).toLocaleDateString()}
-                </MeetingDate>
-                <strong>{meeting.typeOfMeetingName}</strong>
-              </MeetingInfo>
-            </MeetingItem>
-          ))}
-        </ListWrapper>
+        Object.keys(groupedMeetings).map((weekday) => (
+          <div key={weekday} className="mb-4">
+            <p className=" mb-1">
+              {weekday.charAt(0).toUpperCase() + weekday.slice(1)}
+            </p>
+            <ListWrapper>
+              {groupedMeetings[weekday].map((meeting) => (
+                <MeetingItem
+                  key={meeting.id}
+                  onClick={() => handleCardClick(meeting)}
+                >
+                  {meeting.imageUrl && (
+                    <MeetingThumb
+                      src={`${process.env.REACT_APP_API_URL}/${meeting.imageUrl}`}
+                      alt={meeting.name}
+                    />
+                  )}
+                  <MeetingInfo>
+                    <MeetingDate>
+                      {new Date(meeting.date).toLocaleTimeString("pl-PL", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                        weekday: "short",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </MeetingDate>
+                    <strong>{meeting.typeOfMeetingName}</strong>
+                  </MeetingInfo>
+                </MeetingItem>
+              ))}
+            </ListWrapper>
+          </div>
+        ))
       )}
 
       <StyledLink to="/schedule" align="right">
