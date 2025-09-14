@@ -43,7 +43,7 @@ const VideoOverlay = styled.div`
       ${({ theme }) => hexToRgba(theme.colors.background, 1)} 90%
       /* fade to solid color */
   );
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   z-index: -1;
 `;
 
