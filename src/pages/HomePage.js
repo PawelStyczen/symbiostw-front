@@ -140,6 +140,7 @@ const HeroSubtitle = styled.h2`
   letter-spacing: 1rem;
   font-weight: 400;
   color: #9f5965;
+
   transform: translateY(50px) translateX(0px);
 
   @media (max-width: 768px) {
