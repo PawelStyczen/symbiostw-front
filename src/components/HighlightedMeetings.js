@@ -97,7 +97,7 @@ const HighlightedMeetings = () => {
   const handleCardClick = (meeting) => {
     setSelectedMeeting({
       ...meeting,
-      title: meeting.name,
+      title: meeting.typeOfMeetingName,
       start: meeting.date,
       instructor: meeting.instructorName,
       price: meeting.price,

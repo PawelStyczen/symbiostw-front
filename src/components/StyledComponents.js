@@ -28,6 +28,7 @@ export const StyledModal = styled(({ wide, ...props }) => (
   }
 
   .modal-content {
+    padding: 1rem;
     border-radius: 50px;
     border: none !important;
     background-color: ${({ theme }) =>
