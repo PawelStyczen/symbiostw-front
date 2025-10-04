@@ -29,6 +29,7 @@ import NewsArticleDetailsPage from "./pages/NewsArticleDetailPage";
 import ContactPage from "./pages/ContactPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import NewHere from "./pages/NewHere";
+import GoatCounter from "./components/GoatCounter";
 
 import "./custom.scss";
 import Schedule from "./pages/Schedule";
@@ -49,6 +50,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AlertProvider>
           <Router>
+            <GoatCounter />
             <AuthProvider>
               <AlertComponent />
               <AppRoutes />
