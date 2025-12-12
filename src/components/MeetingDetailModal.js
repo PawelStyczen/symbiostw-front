@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Modal, Image, Spinner, Alert, Tabs, Tab } from "react-bootstrap";
+import {
+  Modal,
+  Image,
+  Spinner,
+  Alert,
+  Tabs,
+  Tab,
+  Row,
+  Col,
+} from "react-bootstrap";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { StyledModal, StyledButton, StyledTabs } from "./StyledComponents";
 import { useQuery } from "@tanstack/react-query";
@@ -7,8 +17,10 @@ import { fetchTypeOfMeetingById } from "../services/typeOfMeetingService";
 import { fetchInstructorById } from "../services/instructorService";
 import Tag from "./Tag";
 import ContactSection from "./ContactSection";
+
 import SocialLinks from "./SocialLinks";
 import SkillLevelBadge from "./SkillLevelBadge";
+import MapEmbed from "./MapEmbed";
 
 // helper to normalize links
 const normalizeUrl = (raw) => {
@@ -24,6 +36,13 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
 
   const isMeetingPast = new Date(meeting.start) < new Date();
 
+  const ContactInfo = styled.div`
+    font-size: 1rem;
+    line-height: 1.6;
+    background-color: ${({ theme }) => theme.colors.cardBackground};
+    padding: 30px;
+    border-radius: 50px;
+  `;
   return (
     <StyledModal show={show} onHide={onHide} centered size="xl" scrollable>
       <Modal.Header closeButton>
@@ -67,6 +86,10 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
             <p>
               <strong>Data:</strong> {new Date(meeting.start).toLocaleString()}
             </p>
+            <p>
+              <strong>Lokalizacja:</strong> {meeting.location}
+              <p>Miejscowość: {meeting.locationCity}</p>
+            </p>
           </Tab>
 
           {/* --- Class Description Tab --- */}
@@ -81,7 +104,40 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
 
           {/* --- Contact/Map Tab --- */}
           <Tab eventKey="dojazd" title="Dojazd">
-            <ContactSection />
+            <Row>
+              <Col md={9}>
+                <MapEmbed location={meeting.location} />
+              </Col>
+
+              <Col md={3} className="d-flex flex-column justify-content-center">
+                <ContactInfo>
+                  <br />
+                  <b>{meeting.location}</b>
+                  <br />
+                  {meeting.locationStreet}
+                  <br />
+                  {meeting.locationCity}
+                  <br />
+                  <br />
+                  {meeting.locationDescription}
+                  <br />
+                  <br />
+                  <strong>Telefon:</strong>
+                  <br />
+                  666 617 974
+                  <br />
+                  <br />
+                  <strong>Email:</strong>
+                  <br />
+                  kontakt@symbiostw.pl
+                  <SocialLinks
+                    facebookUrl="https://www.facebook.com/alantanczy"
+                    instagramUrl="https://www.instagram.com/symbiostw/"
+                    tiktokUrl={"https://www.tiktok.com/@symbiostw"}
+                  />
+                </ContactInfo>
+              </Col>
+            </Row>
           </Tab>
         </StyledTabs>
       </Modal.Body>

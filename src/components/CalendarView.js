@@ -33,6 +33,20 @@ const pillStyle = (active, type) => {
   };
 };
 
+const getLocationBorderColor = (locationName) => {
+  switch (locationName) {
+    case "Szkoła tańca Symbio":
+      return "#ffffffff"; // zielony
+    case "SP Ulanów":
+    case "Ulanow": // zostaw obie wersje albo tylko tę której używasz
+      return "#92c0f4ff"; // niebieski
+    case "Tarnobrzeg":
+      return "#bff6edff"; // ciemny teal
+    default:
+      return "grey"; // fallback
+  }
+};
+
 const CalendarView = () => {
   const location = useLocation();
   const preselectedType = location.state?.type;
@@ -47,6 +61,7 @@ const CalendarView = () => {
   const [selectedInstructors, setSelectedInstructors] = useState(
     preselectedInstructors ? [preselectedInstructors] : []
   );
+  const [selectedLocations, setSelectedLocations] = useState([]);
   const [soloOnly, setSoloOnly] = useState(false);
 
   const toggleType = (type) => {
@@ -62,6 +77,14 @@ const CalendarView = () => {
     );
   };
 
+  const toggleLocation = (locationName) => {
+    setSelectedLocations((prev) =>
+      prev.includes(locationName)
+        ? prev.filter((loc) => loc !== locationName)
+        : [...prev, locationName]
+    );
+  };
+
   const { data: meetings = [] } = useQuery({
     queryKey: ["calendarData"],
     queryFn: fetchMeetings,
@@ -70,15 +93,23 @@ const CalendarView = () => {
 
   const allTypes = [...new Set(meetings.map((m) => m.typeOfMeetingName))];
   const allInstructors = [...new Set(meetings.map((m) => m.instructorName))];
+  const allLocations = [...new Set(meetings.map((m) => m.locationName))];
 
   const filteredMeetings = meetings.filter((m) => {
     const matchType =
       selectedTypes.length === 0 || selectedTypes.includes(m.typeOfMeetingName);
+
     const matchInstructor =
       selectedInstructors.length === 0 ||
       selectedInstructors.includes(m.instructorName);
+
+    const matchLocation =
+      selectedLocations.length === 0 ||
+      selectedLocations.includes(m.locationName); // or m.locationCity
+
     const matchSolo = !soloOnly || m.isSolo;
-    return matchType && matchInstructor && matchSolo;
+
+    return matchType && matchInstructor && matchLocation && matchSolo;
   });
 
   // Map to events: title = type only; keep level & flags on the event
@@ -92,6 +123,9 @@ const CalendarView = () => {
     isSolo: meeting.isSolo,
     imageUrl: meeting.imageUrl,
     location: meeting.locationName,
+    locationCity: meeting.locationCity,
+    locationStreet: meeting.locationStreet,
+    locationDescription: meeting.locationDescription,
     instructor: meeting.instructorName,
     price: meeting.price,
     typeOfMeetingId: meeting.typeOfMeetingId,
@@ -209,7 +243,32 @@ const CalendarView = () => {
                 </button>
               </div>
             </div>
-
+            <div className="me-3 d-flex flex-row align-items-center">
+              <strong>Lokalizacje:</strong>
+              <div
+                style={{
+                  marginTop: "0.5rem",
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                {allLocations.map((loc) => {
+                  const isActive = selectedLocations.includes(loc);
+                  return (
+                    <button
+                      key={loc}
+                      onClick={() => toggleLocation(loc)}
+                      style={{
+                        ...pillStyle(isActive),
+                        border: `6px solid ${getLocationBorderColor(loc)}`,
+                      }}
+                    >
+                      {loc}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <div className="me-3 d-flex flex-row align-items-center">
               <strong>Prowadzący:</strong>
               <div
@@ -273,7 +332,7 @@ const CalendarView = () => {
         }}
         eventPropGetter={(event) => {
           const isPast = event.start < new Date();
-          const isIndividualSpot = event.isIndividual; // ✅ use flag, not title check
+          const isIndividualSpot = event.isIndividual;
           const isMobile = window.innerWidth <= 768;
 
           let backgroundColor = "white";
@@ -287,14 +346,16 @@ const CalendarView = () => {
             color = "#000";
           }
 
+          const locationBorderColor = getLocationBorderColor(event.location);
+
           return {
             style: {
-              backgroundColor,
+              backgroundColor: `${locationBorderColor}`,
               color,
-              border: "grey 1px solid",
-              fontSize: isMobile ? "0.4rem" : "0.6rem", // 👈 smaller on mobile
+              border: `1px  solid grey`, // 👈 tu magia
+              fontSize: isMobile ? "0.4rem" : "0.6rem",
               borderRadius: "5px",
-              padding: isMobile ? "2px" : "10px", // 👈 optional tighter spacing
+              padding: isMobile ? "2px" : "10px",
             },
           };
         }}
