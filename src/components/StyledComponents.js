@@ -8,7 +8,7 @@ import { darken } from "polished";
 export const StyledContainer = styled(Container)`
   max-width: 1200px;
   margin: auto;
-  margin-top: 6rem;
+  margin-top: 8rem;
   margin-bottom: 6rem;
 
   ${({ backgroundColor }) =>
@@ -16,7 +16,7 @@ export const StyledContainer = styled(Container)`
     `background-color: ${backgroundColor}; padding: 3rem; border-radius: 50px;`}
 
   @media (max-width: 768px) {
-    margin-top: 6rem;
+    margin-top: 8rem;
   }
 `;
 

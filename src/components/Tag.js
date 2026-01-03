@@ -1,29 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
+const tagStyles = {
+  individual: {
+    label: "Indywidualne",
+    bg: "#1E88E5", // blue
+  },
+  solo: {
+    label: "Solo",
+    bg: "#6A1B9A", // purple
+  },
+  event: {
+    label: "Wydarzenie",
+    bg: "#C62828", // red
+  },
+};
 
+const isMobile = window.innerWidth <= 768;
 const Tag = ({ type }) => {
   // Define tagss
-  const tagStyles = {
-    individual: { label: "Indywidualne" }, // Blue
-    solo: { label: "Solo" }, // Blue
-    // more to add
+  const tag = tagStyles[type] || {
+    label: "Unknown",
+    bg: "#6c757d",
   };
-
-  // Fallback
-  const tag = tagStyles[type] || { label: "Unknown", color: "#6c757d" }; // Gray for unknown
 
   return (
     <span
       style={{
         display: "inline-block",
-        padding: "0.2rem 0.5rem",
-        fontSize: "0.8rem",
-        fontWeight: "light",
+        padding: isMobile ? "0.15rem 0.25rem" : "0.2rem 0.3rem",
+        borderRadius: "25px",
+        fontSize: isMobile ? "0.35rem" : "0.6rem",
+        fontWeight: "bold",
         color: "white",
         backdropFilter: "blur(4px)",
-        backgroundColor: "rgba(0,0,0,0.7)",
+        backgroundColor: tag.bg, // ✅ KLUCZOWE
 
-        textTransform: "uppercase",
         marginRight: "0.5rem",
       }}
     >

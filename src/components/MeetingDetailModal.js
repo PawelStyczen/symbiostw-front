@@ -46,7 +46,9 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
   return (
     <StyledModal show={show} onHide={onHide} centered size="xl" scrollable>
       <Modal.Header closeButton>
-        <Modal.Title>{meeting.title}</Modal.Title>
+        <Modal.Title>
+          {meeting.title} {meeting.isEvent && <Tag type="event" />}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <StyledTabs

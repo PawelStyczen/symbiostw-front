@@ -3,11 +3,13 @@ import { StyledContainer } from "../StyledComponents";
 import AppNavbar from "./AppNavbar";
 import Footer from "./Footer";
 import ContactButtons from "../ContactButtons";
+import EventAnnouncementBar from "./EventAnnoucementBar";
 
 const Layout = ({ children, onLogout }) => {
   return (
     <>
       <AppNavbar onLogout={onLogout} />
+      <EventAnnouncementBar />
       <StyledContainer>{children}</StyledContainer>
       <Footer />
 

@@ -59,7 +59,6 @@ const SkillLevelBadge = ({
   const text = overrideLabel || levelLabel[key];
   return (
     <Pill $size={size} $bg={bg} $fg={fg} title={text}>
-      {showIcon && <Dot $size={size} />}
       {text}
     </Pill>
   );
