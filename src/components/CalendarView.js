@@ -62,10 +62,10 @@ const CalendarView = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const [selectedTypes, setSelectedTypes] = useState(
-    preselectedType ? [preselectedType] : []
+    preselectedType ? [preselectedType] : [],
   );
   const [selectedInstructors, setSelectedInstructors] = useState(
-    preselectedInstructors ? [preselectedInstructors] : []
+    preselectedInstructors ? [preselectedInstructors] : [],
   );
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [soloOnly, setSoloOnly] = useState(false);
@@ -85,16 +85,16 @@ const CalendarView = () => {
   }, [meetings]);
   const allInstructors = useMemo(
     () => [...new Set(meetings.map((m) => m.instructorName))],
-    [meetings]
+    [meetings],
   );
   const allLocations = useMemo(
     () => [...new Set(meetings.map((m) => m.locationName))],
-    [meetings]
+    [meetings],
   );
 
   const toggleType = (type) => {
     setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   };
 
@@ -102,7 +102,7 @@ const CalendarView = () => {
     setSelectedInstructors((prev) =>
       prev.includes(instructor)
         ? prev.filter((i) => i !== instructor)
-        : [...prev, instructor]
+        : [...prev, instructor],
     );
   };
 
@@ -110,7 +110,7 @@ const CalendarView = () => {
     setSelectedLocations((prev) =>
       prev.includes(locationName)
         ? prev.filter((loc) => loc !== locationName)
-        : [...prev, locationName]
+        : [...prev, locationName],
     );
   };
 
@@ -163,7 +163,7 @@ const CalendarView = () => {
       title: meeting.typeOfMeetingName,
       start: new Date(meeting.date),
       end: new Date(
-        new Date(meeting.date).getTime() + meeting.duration * 60000
+        new Date(meeting.date).getTime() + meeting.duration * 60000,
       ),
       id: meeting.id,
       level: meeting.level,
@@ -454,7 +454,7 @@ const CalendarView = () => {
         endAccessor="end"
         defaultView="week"
         style={{ height: "80vh" }}
-        min={new Date(1970, 1, 1, 10, 0)}
+        min={new Date(1970, 1, 1, 15, 0)}
         max={new Date(1970, 1, 1, 22, 0)}
         onSelectEvent={handleEventClick}
         formats={{
@@ -464,7 +464,7 @@ const CalendarView = () => {
             `${loc.format(start, "HH:mm", culture)} – ${loc.format(
               end,
               "HH:mm",
-              culture
+              culture,
             )}`,
         }}
         messages={{
@@ -503,9 +503,9 @@ const CalendarView = () => {
               backgroundColor: `${locationBorderColor}`,
               color,
               border: "1px solid grey",
-              fontSize: isMobile ? "0.4rem" : "0.6rem",
+              fontSize: isMobile ? "0.5rem" : "0.6rem",
               borderRadius: "5px",
-              padding: isMobile ? "2px" : "10px",
+              padding: isMobile ? "0.5px" : "10px",
             },
           };
         }}
