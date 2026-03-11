@@ -11,7 +11,12 @@ import SkillLevelBadge from "../components/SkillLevelBadge";
 import Tag from "../components/Tag";
 import { Offcanvas, Button } from "react-bootstrap";
 
-import weeklyAgendaRBCView from "../views/weeklyAgendaView";
+import WeeklyAgendaView from "../components/WeeklyAgendaView";
+import {
+  weeklyAgendaRange,
+  weeklyAgendaNavigate,
+  weeklyAgendaTitle,
+} from "../views/weeklyAgendaView";
 
 const localizer = momentLocalizer(moment);
 
@@ -225,6 +230,14 @@ const CalendarView = () => {
     handleEventClick(event);
   };
 
+  const MobileWeeklyAgendaView = (props) => (
+    <WeeklyAgendaView {...props} onNavigate={(d) => setCalendarDate(d)} />
+  );
+
+  MobileWeeklyAgendaView.range = weeklyAgendaRange;
+  MobileWeeklyAgendaView.navigate = weeklyAgendaNavigate;
+  MobileWeeklyAgendaView.title = weeklyAgendaTitle;
+
   const EventWithLevel = ({ event }) => (
     <span
       style={{
@@ -323,7 +336,7 @@ const CalendarView = () => {
         style={{
           position: "fixed",
           right: "14px",
-          top: "50%",
+          top: "15%",
           transform: "translateY(-50%)",
           zIndex: 1030,
           border: hasActiveFilters
@@ -513,7 +526,7 @@ const CalendarView = () => {
         defaultView={isMobile ? "weeklyAgenda" : "week"}
         views={
           isMobile
-            ? { weeklyAgenda: weeklyAgendaRBCView }
+            ? { weeklyAgenda: MobileWeeklyAgendaView }
             : ["week", "day", "agenda"]
         }
         date={calendarDate}
