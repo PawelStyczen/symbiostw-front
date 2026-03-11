@@ -236,9 +236,9 @@ const CalendarView = () => {
     >
       <strong>{event.title}</strong>
 
-      {event.isEvent && <Tag type="event" />}
-      {event.isIndividual && <Tag type="individual" />}
-      {event.isSolo && <Tag type="solo" />}
+      {event.isEvent && <Tag type="event" size="sm" />}
+      {event.isIndividual && <Tag type="individual" size="sm" />}
+      {event.isSolo && <Tag type="solo" size="sm" />}
 
       {event.level !== null && event.level !== undefined && (
         <SkillLevelBadge value={event.level} size="sm" />

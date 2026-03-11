@@ -1,50 +1,52 @@
+// src/components/Tag.js
 import React from "react";
 import PropTypes from "prop-types";
-const tagStyles = {
+import Badge from "./Badge";
+
+export const tagConfig = {
   individual: {
     label: "Indywidualne",
-    bg: "#1E88E5", // blue
+    bg: "#1E88E5",
+    fg: "#FFFFFF",
   },
   solo: {
     label: "Solo",
-    bg: "#6A1B9A", // purple
+    bg: "#6A1B9A",
+    fg: "#FFFFFF",
   },
   event: {
     label: "Wydarzenie",
-    bg: "#C62828", // red
+    bg: "#C62828",
+    fg: "#FFFFFF",
   },
 };
 
-const isMobile = window.innerWidth <= 768;
-const Tag = ({ type }) => {
-  // Define tagss
-  const tag = tagStyles[type] || {
+export const getTagBadgeProps = (type) =>
+  tagConfig[type] || {
     label: "Unknown",
-    bg: "#6c757d",
+    bg: "#6C757D",
+    fg: "#FFFFFF",
   };
 
-  return (
-    <span
-      style={{
-        display: "inline-block",
-        padding: isMobile ? "0.15rem 0.25rem" : "0.2rem 0.3rem",
-        borderRadius: "25px",
-        fontSize: isMobile ? "0.35rem" : "0.6rem",
-        fontWeight: "bold",
-        color: "white",
-        backdropFilter: "blur(4px)",
-        backgroundColor: tag.bg, // ✅ KLUCZOWE
+const Tag = ({ type, size = "md", overrideLabel, className }) => {
+  const { label, bg, fg } = getTagBadgeProps(type);
 
-        marginRight: "0.5rem",
-      }}
-    >
-      {tag.label}
-    </span>
+  return (
+    <Badge
+      label={overrideLabel || label}
+      bg={bg}
+      fg={fg}
+      size={size}
+      className={className}
+    />
   );
 };
 
 Tag.propTypes = {
   type: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(["sm", "md"]),
+  overrideLabel: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Tag;

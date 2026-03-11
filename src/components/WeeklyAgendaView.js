@@ -203,9 +203,11 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent }) => {
 
                             <TagsCell>
                               <TagsWrap>
-                                {e.isEvent && <Tag type="event" />}
-                                {e.isIndividual && <Tag type="individual" />}
-                                {e.isSolo && <Tag type="solo" />}
+                                {e.isEvent && <Tag type="event" size="sm" />}
+                                {e.isIndividual && (
+                                  <Tag type="individual" size="sm" />
+                                )}
+                                {e.isSolo && <Tag type="solo" size="sm" />}
 
                                 {e.level !== null && e.level !== undefined && (
                                   <SkillLevelBadge value={e.level} size="sm" />
