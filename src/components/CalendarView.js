@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -10,6 +10,8 @@ import MeetingDetailsModal from "./MeetingDetailModal";
 import SkillLevelBadge from "../components/SkillLevelBadge";
 import Tag from "../components/Tag";
 import { Offcanvas, Button } from "react-bootstrap";
+
+import weeklyAgendaRBCView from "../views/weeklyAgendaView";
 
 const localizer = momentLocalizer(moment);
 
@@ -50,7 +52,13 @@ const getLocationBorderColor = (locationName) => {
 };
 
 const CalendarView = () => {
-  const isMobile = window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -70,6 +78,7 @@ const CalendarView = () => {
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [soloOnly, setSoloOnly] = useState(false);
 
+  const [calendarDate, setCalendarDate] = useState(new Date());
   const { data: meetings = [] } = useQuery({
     queryKey: ["calendarData"],
     queryFn: fetchMeetings,
@@ -187,6 +196,35 @@ const CalendarView = () => {
     setModalShow(true);
   };
 
+  //USED FOR NEXT 3 DAYS LIST
+  const handleListSelect = (meeting) => {
+    // meeting to "raw" meeting z API
+    const event = {
+      title: meeting.typeOfMeetingName,
+      start: new Date(meeting.date),
+      end: new Date(
+        new Date(meeting.date).getTime() + meeting.duration * 60000,
+      ),
+      id: meeting.id,
+
+      level: meeting.level,
+      isIndividual: meeting.isIndividual,
+      isSolo: meeting.isSolo,
+      imageUrl: meeting.imageUrl,
+      location: meeting.locationName,
+      locationCity: meeting.locationCity,
+      locationStreet: meeting.locationStreet,
+      locationDescription: meeting.locationDescription,
+      instructor: meeting.instructorName,
+      price: meeting.price,
+      typeOfMeetingId: meeting.typeOfMeetingId,
+      instructorId: meeting.instructorId,
+      isEvent: meeting.isEvent,
+    };
+
+    handleEventClick(event);
+  };
+
   const EventWithLevel = ({ event }) => (
     <span
       style={{
@@ -251,6 +289,26 @@ const CalendarView = () => {
     </div>
   );
 
+  const AgendaDateWithWeekSeparator = ({ day, label }) => {
+    // day: Date
+    const isSunday = day.getDay() === 0; // 0 = Sunday
+    return (
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ fontWeight: 700 }}>{label}</div>
+
+        {/* separator PO niedzieli = wizualny koniec tygodnia */}
+        {isSunday && (
+          <div
+            style={{
+              height: 10,
+              marginTop: 10,
+              borderBottom: "2px dashed rgba(0,0,0,0.18)",
+            }}
+          />
+        )}
+      </div>
+    );
+  };
   return (
     <div>
       {/* Legenda może zostać zawsze */}
@@ -452,8 +510,15 @@ const CalendarView = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        defaultView="week"
-        style={{ height: "80vh" }}
+        defaultView={isMobile ? "weeklyAgenda" : "week"}
+        views={
+          isMobile
+            ? { weeklyAgenda: weeklyAgendaRBCView }
+            : ["week", "day", "agenda"]
+        }
+        date={calendarDate}
+        onNavigate={(d) => setCalendarDate(d)}
+        style={{ height: isMobile ? "100%" : "80vh" }}
         min={new Date(1970, 1, 1, 15, 0)}
         max={new Date(1970, 1, 1, 22, 0)}
         onSelectEvent={handleEventClick}
@@ -511,6 +576,9 @@ const CalendarView = () => {
         }}
         components={{
           event: EventWithLevel,
+          agenda: {
+            date: AgendaDateWithWeekSeparator,
+          },
         }}
       />
 
