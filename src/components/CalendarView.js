@@ -259,49 +259,6 @@ const CalendarView = () => {
     </span>
   );
 
-  const Legend = () => (
-    <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-        <div
-          style={{
-            width: "20px",
-            height: "20px",
-            backgroundColor: "#81D4FA",
-            border: "1px solid grey",
-            borderRadius: "5px",
-          }}
-        />
-        <span>Indywidualne spotkanie | wolne miejsce</span>
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-        <div
-          style={{
-            width: "20px",
-            height: "20px",
-            backgroundColor: "#B0BEC5",
-            border: "1px solid grey",
-            borderRadius: "5px",
-          }}
-        />
-        <span>Przeszłe</span>
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-        <div
-          style={{
-            width: "20px",
-            height: "20px",
-            backgroundColor: "white",
-            border: "1px solid grey",
-            borderRadius: "5px",
-          }}
-        />
-        <span>Dostępne</span>
-      </div>
-    </div>
-  );
-
   const AgendaDateWithWeekSeparator = ({ day, label }) => {
     // day: Date
     const isSunday = day.getDay() === 0; // 0 = Sunday
@@ -325,9 +282,6 @@ const CalendarView = () => {
   return (
     <div>
       {/* Legenda może zostać zawsze */}
-      <div style={{ marginBottom: "12px" }}>
-        <Legend />
-      </div>
 
       {/* Floating Filters Button (desktop + mobile) */}
       <button

@@ -19,13 +19,13 @@ const weekRangeLabel = (date) => {
 ========================= */
 
 const ScrollArea = styled.div`
-  max-height: calc(100vh - 300px);
+  max-height: 100vh;
   overflow-y: auto;
   padding-right: 4px;
   -webkit-overflow-scrolling: touch;
 
   @media (max-width: 768px) {
-    max-height: calc(100vh - 450px);
+    max-height: calc(100vh - 300px);
   }
 `;
 
@@ -80,14 +80,16 @@ const DayCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 14px;
   overflow: hidden;
-  background: white;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
 `;
 
 const DayHeader = styled.div`
-  padding: 10px 12px;
+  padding: 3px 12px;
   font-weight: 900;
-  background: rgba(0, 0, 0, 0.04);
+
   text-transform: capitalize;
+  text-align: center;
 `;
 
 const CardList = styled.div`
@@ -106,7 +108,7 @@ const EventCard = styled.button`
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
   transition:
     transform 0.08s ease,
@@ -128,8 +130,8 @@ const TopRow = styled.div`
 `;
 
 const TimeText = styled.div`
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 100;
   opacity: 0.8;
   white-space: nowrap;
 `;
@@ -142,14 +144,15 @@ const Arrow = styled.div`
 `;
 
 const TitleText = styled.div`
-  font-size: 15px;
-  font-weight: 900;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.3;
 `;
 
 const MetaRow = styled.div`
   font-size: 13px;
   opacity: 0.75;
+  text-align: right;
 `;
 
 const TagsWrap = styled.div`
@@ -305,11 +308,8 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent, onNavigate }) => {
                               <Arrow>›</Arrow>
                             </TopRow>
 
-                            <TitleText>{e.title}</TitleText>
-
-                            <MetaRow>{e.location || "-"}</MetaRow>
-
-                            <TagsWrap>
+                            <TitleText>
+                              {e.title}{" "}
                               {e.isEvent && <Tag type="event" size="sm" />}
                               {e.isIndividual && (
                                 <Tag type="individual" size="sm" />
@@ -317,8 +317,12 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent, onNavigate }) => {
                               {e.isSolo && <Tag type="solo" size="sm" />}
                               {e.level !== null && e.level !== undefined && (
                                 <SkillLevelBadge value={e.level} size="sm" />
-                              )}
-                            </TagsWrap>
+                              )}{" "}
+                            </TitleText>
+
+                            <MetaRow>{e.location || "-"}</MetaRow>
+
+                            <TagsWrap></TagsWrap>
                           </EventCard>
                         ))}
                       </CardList>
