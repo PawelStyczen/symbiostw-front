@@ -260,81 +260,79 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent, onNavigate }) => {
   };
 
   return (
-    <ScrollArea>
-      <AnimatePresence mode="wait" custom={direction}>
-        <AnimatedContent
-          key={moment(date).startOf("isoWeek").format("YYYY-[W]WW")}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <Wrapper>
-            <WeekHeader>
-              <WeekHeaderTitle>Tydzień</WeekHeaderTitle>
-              <WeekHeaderRange>{weekRangeLabel(date)}</WeekHeaderRange>
-            </WeekHeader>
+    <AnimatePresence mode="wait" custom={direction}>
+      <AnimatedContent
+        key={moment(date).startOf("isoWeek").format("YYYY-[W]WW")}
+        custom={direction}
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <Wrapper>
+          <WeekHeader>
+            <WeekHeaderTitle>Tydzień</WeekHeaderTitle>
+            <WeekHeaderRange>{weekRangeLabel(date)}</WeekHeaderRange>
+          </WeekHeader>
 
-            <SwipeHint>Przesuń w lewo lub prawo, aby zmienić tydzień</SwipeHint>
+          <SwipeHint>Przesuń w lewo lub prawo, aby zmienić tydzień</SwipeHint>
 
-            {weekEvents.length === 0 ? (
-              <EmptyState>Brak wydarzeń w tym tygodniu</EmptyState>
-            ) : (
-              <DaysList>
-                {byDay.map(([dayKey, items]) => {
-                  const day = moment(dayKey, "YYYY-MM-DD");
+          {weekEvents.length === 0 ? (
+            <EmptyState>Brak wydarzeń w tym tygodniu</EmptyState>
+          ) : (
+            <DaysList>
+              {byDay.map(([dayKey, items]) => {
+                const day = moment(dayKey, "YYYY-MM-DD");
 
-                  return (
-                    <DayCard key={dayKey}>
-                      <DayHeader>{day.format("dddd, DD.MM")}</DayHeader>
+                return (
+                  <DayCard key={dayKey}>
+                    <DayHeader>{day.format("dddd, DD.MM")}</DayHeader>
 
-                      <CardList>
-                        {items.map((e) => (
-                          <EventCard
-                            key={e.id}
-                            onClick={() => onSelectEvent?.(e)}
-                            type="button"
-                            aria-label={`Otwórz szczegóły: ${e.title}`}
-                          >
-                            <TopRow>
-                              <TimeText>
-                                {fmtTime(e.start)}–{fmtTime(e.end)}
-                              </TimeText>
-                              <Arrow>›</Arrow>
-                            </TopRow>
+                    <CardList>
+                      {items.map((e) => (
+                        <EventCard
+                          key={e.id}
+                          onClick={() => onSelectEvent?.(e)}
+                          type="button"
+                          aria-label={`Otwórz szczegóły: ${e.title}`}
+                        >
+                          <TopRow>
+                            <TimeText>
+                              {fmtTime(e.start)}–{fmtTime(e.end)}
+                            </TimeText>
+                            <Arrow>›</Arrow>
+                          </TopRow>
 
-                            <TitleText>
-                              {e.title}{" "}
-                              {e.isEvent && <Tag type="event" size="sm" />}
-                              {e.isIndividual && (
-                                <Tag type="individual" size="sm" />
-                              )}
-                              {e.isSolo && <Tag type="solo" size="sm" />}
-                              {e.level !== null && e.level !== undefined && (
-                                <SkillLevelBadge value={e.level} size="sm" />
-                              )}{" "}
-                            </TitleText>
+                          <TitleText>
+                            {e.title}{" "}
+                            {e.isEvent && <Tag type="event" size="sm" />}
+                            {e.isIndividual && (
+                              <Tag type="individual" size="sm" />
+                            )}
+                            {e.isSolo && <Tag type="solo" size="sm" />}
+                            {e.level !== null && e.level !== undefined && (
+                              <SkillLevelBadge value={e.level} size="sm" />
+                            )}{" "}
+                          </TitleText>
 
-                            <MetaRow>{e.location || "-"}</MetaRow>
+                          <MetaRow>{e.location || "-"}</MetaRow>
 
-                            <TagsWrap></TagsWrap>
-                          </EventCard>
-                        ))}
-                      </CardList>
-                    </DayCard>
-                  );
-                })}
-              </DaysList>
-            )}
-          </Wrapper>
-        </AnimatedContent>
-      </AnimatePresence>
-    </ScrollArea>
+                          <TagsWrap></TagsWrap>
+                        </EventCard>
+                      ))}
+                    </CardList>
+                  </DayCard>
+                );
+              })}
+            </DaysList>
+          )}
+        </Wrapper>
+      </AnimatedContent>
+    </AnimatePresence>
   );
 };
 export default WeeklyAgendaView;

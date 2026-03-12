@@ -290,7 +290,7 @@ const CalendarView = () => {
         style={{
           position: "fixed",
           right: "14px",
-          top: "15%",
+          top: "50%",
           transform: "translateY(-50%)",
           zIndex: 1030,
           border: hasActiveFilters
