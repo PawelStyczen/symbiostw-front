@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, { useMemo, useRef, useEffect } from "react";
 import moment from "moment";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,6 +12,20 @@ const weekRangeLabel = (date) => {
   const start = moment(date).startOf("isoWeek");
   const end = moment(date).endOf("isoWeek");
   return `${start.format("DD.MM")} – ${end.format("DD.MM")}`;
+};
+
+const getLocationBorderColor = (locationName) => {
+  switch (locationName) {
+    case "Szkoła tańca Symbio":
+      return "#ffffffff";
+    case "GCK Ulanów":
+    case "Ulanow":
+      return "rgba(146, 192, 244, 0.15)";
+    case "Tarnobrzeg":
+      return "rgba(191, 246, 237, 0.15)";
+    default:
+      return "grey";
+  }
 };
 
 /* =========================
@@ -87,7 +101,6 @@ const DayCard = styled.div`
 const DayHeader = styled.div`
   padding: 3px 12px;
   font-weight: 900;
-
   text-transform: capitalize;
   text-align: center;
 `;
@@ -101,9 +114,10 @@ const CardList = styled.div`
 
 const EventCard = styled.button`
   width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
   border-radius: 16px;
-  background: white;
+  background: ${({ $locationColor }) => $locationColor || "white"};
   padding: 12px;
   text-align: left;
   display: flex;
@@ -118,7 +132,7 @@ const EventCard = styled.button`
 
   &:active {
     transform: scale(0.985);
-    background-color: rgba(180, 79, 102, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   }
 `;
 
@@ -293,37 +307,43 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent, onNavigate }) => {
                     <DayHeader>{day.format("dddd, DD.MM")}</DayHeader>
 
                     <CardList>
-                      {items.map((e) => (
-                        <EventCard
-                          key={e.id}
-                          onClick={() => onSelectEvent?.(e)}
-                          type="button"
-                          aria-label={`Otwórz szczegóły: ${e.title}`}
-                        >
-                          <TopRow>
-                            <TimeText>
-                              {fmtTime(e.start)}–{fmtTime(e.end)}
-                            </TimeText>
-                            <Arrow>›</Arrow>
-                          </TopRow>
+                      {items.map((e) => {
+                        const locationColor = getLocationBorderColor(
+                          e.location,
+                        );
 
-                          <TitleText>
-                            {e.title}{" "}
-                            {e.isEvent && <Tag type="event" size="sm" />}
-                            {e.isIndividual && (
-                              <Tag type="individual" size="sm" />
-                            )}
-                            {e.isSolo && <Tag type="solo" size="sm" />}
-                            {e.level !== null && e.level !== undefined && (
-                              <SkillLevelBadge value={e.level} size="sm" />
-                            )}{" "}
-                          </TitleText>
+                        return (
+                          <EventCard
+                            key={e.id}
+                            onClick={() => onSelectEvent?.(e)}
+                            type="button"
+                            aria-label={`Otwórz szczegóły: ${e.title}`}
+                            $locationColor={locationColor}
+                          >
+                            <TopRow>
+                              <TimeText>
+                                {fmtTime(e.start)}–{fmtTime(e.end)}
+                              </TimeText>
+                              <Arrow>›</Arrow>
+                            </TopRow>
 
-                          <MetaRow>{e.location || "-"}</MetaRow>
+                            <TitleText>{e.title}</TitleText>
 
-                          <TagsWrap></TagsWrap>
-                        </EventCard>
-                      ))}
+                            <TagsWrap>
+                              {e.isEvent && <Tag type="event" size="sm" />}
+                              {e.isIndividual && (
+                                <Tag type="individual" size="sm" />
+                              )}
+                              {e.isSolo && <Tag type="solo" size="sm" />}
+                              {e.level !== null && e.level !== undefined && (
+                                <SkillLevelBadge value={e.level} size="sm" />
+                              )}
+                            </TagsWrap>
+
+                            <MetaRow>{e.location || "-"}</MetaRow>
+                          </EventCard>
+                        );
+                      })}
                     </CardList>
                   </DayCard>
                 );
@@ -335,4 +355,5 @@ const WeeklyAgendaView = ({ date, events = [], onSelectEvent, onNavigate }) => {
     </AnimatePresence>
   );
 };
+
 export default WeeklyAgendaView;
