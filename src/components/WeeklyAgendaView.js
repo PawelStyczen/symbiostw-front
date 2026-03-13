@@ -115,7 +115,7 @@ const CardList = styled.div`
 const EventCard = styled.button`
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-
+  color: #111;
   border-radius: 16px;
   background: ${({ $locationColor }) => $locationColor || "white"};
   padding: 12px;
@@ -148,6 +148,7 @@ const TimeText = styled.div`
   font-weight: 100;
   opacity: 0.8;
   white-space: nowrap;
+  font-color: inherit;
 `;
 
 const Arrow = styled.div`
@@ -161,12 +162,14 @@ const TitleText = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
+  font-color: inherit;
 `;
 
 const MetaRow = styled.div`
   font-size: 13px;
   opacity: 0.75;
   text-align: right;
+  font-color: inherit;
 `;
 
 const TagsWrap = styled.div`
