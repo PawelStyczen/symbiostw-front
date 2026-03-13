@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { StyledContainer } from "../StyledComponents";
 import AppNavbar from "./AppNavbar";
 import Footer from "./Footer";
@@ -6,14 +7,16 @@ import ContactButtons from "../ContactButtons";
 import EventAnnouncementBar from "./EventAnnoucementBar";
 
 const Layout = ({ children, onLogout }) => {
+  const location = useLocation();
+
+  const hideAnnouncementBar = location.pathname === "/schedule";
+
   return (
     <>
       <AppNavbar onLogout={onLogout} />
-      <EventAnnouncementBar />
+      {!hideAnnouncementBar && <EventAnnouncementBar />}
       <StyledContainer>{children}</StyledContainer>
       <Footer />
-
-      {/* Messenger chat (Page ID required) */}
       <ContactButtons pageUsername="alantanczy" phone="+48666617974" />
     </>
   );
