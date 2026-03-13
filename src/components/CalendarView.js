@@ -46,11 +46,11 @@ const getLocationBorderColor = (locationName) => {
   switch (locationName) {
     case "Szkoła tańca Symbio":
       return "#ffffffff";
-    case "SP Ulanów":
+    case "GCK Ulanów":
     case "Ulanow":
-      return "#92c0f4ff";
+      return "rgba(146, 192, 244, 0.48)";
     case "Tarnobrzeg":
-      return "#bff6edff";
+      return "rgba(191, 246, 237, 0.64)";
     default:
       return "grey";
   }
@@ -239,24 +239,29 @@ const CalendarView = () => {
   MobileWeeklyAgendaView.title = weeklyAgendaTitle;
 
   const EventWithLevel = ({ event }) => (
-    <span
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 6,
-        flexWrap: "wrap",
-      }}
-    >
-      <strong>{event.title}</strong>
+    <>
+      <span
+        style={{
+          display: "flex",
 
-      {event.isEvent && <Tag type="event" size="sm" />}
-      {event.isIndividual && <Tag type="individual" size="sm" />}
-      {event.isSolo && <Tag type="solo" size="sm" />}
+          alignItems: "center",
 
-      {event.level !== null && event.level !== undefined && (
-        <SkillLevelBadge value={event.level} size="sm" />
-      )}
-    </span>
+          gap: 6,
+          flexWrap: "wrap",
+        }}
+      >
+        <strong>{event.title}</strong>
+
+        {event.isEvent && <Tag type="event" size="sm" />}
+        {event.isIndividual && <Tag type="individual" size="sm" />}
+        {event.isSolo && <Tag type="solo" size="sm" />}
+
+        {event.level !== null && event.level !== undefined && (
+          <SkillLevelBadge value={event.level} size="sm" />
+        )}
+      </span>
+      <span style={{ fontSize: "0.5rem", opacity: 0.8 }}>{event.location}</span>
+    </>
   );
 
   const AgendaDateWithWeekSeparator = ({ day, label }) => {
@@ -485,7 +490,7 @@ const CalendarView = () => {
         }
         date={calendarDate}
         onNavigate={(d) => setCalendarDate(d)}
-        style={{ height: isMobile ? "100%" : "80vh" }}
+        style={{ height: isMobile ? "100%" : "100vh" }}
         min={new Date(1970, 1, 1, 15, 0)}
         max={new Date(1970, 1, 1, 22, 0)}
         onSelectEvent={handleEventClick}
@@ -519,14 +524,6 @@ const CalendarView = () => {
 
           let backgroundColor = "white";
           let color = "black";
-
-          if (isPast) {
-            backgroundColor = "#B0BEC5";
-            color = "#757575";
-          } else if (isIndividualSpot) {
-            backgroundColor = "#81D4FA";
-            color = "#000";
-          }
 
           const locationBorderColor = getLocationBorderColor(event.location);
 

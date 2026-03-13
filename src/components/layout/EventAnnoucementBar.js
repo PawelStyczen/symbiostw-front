@@ -18,7 +18,6 @@ const EventAnnouncementBar = () => {
 
   return (
     <>
-      {/* BAR */}
       <div
         style={{
           position: "fixed",
@@ -27,7 +26,7 @@ const EventAnnouncementBar = () => {
           right: 0,
           zIndex: 1020,
 
-          background: "rgba(248, 66, 66, 0.4)",
+          background: "rgba(248, 66, 66, 0.6)",
           backdropFilter: "blur(12px) saturate(160%)",
           WebkitBackdropFilter: "blur(12px) saturate(160%)",
 
@@ -120,7 +119,7 @@ const EventAnnouncementBar = () => {
             start: new Date(selectedEvent.date),
             end: new Date(
               new Date(selectedEvent.date).getTime() +
-                selectedEvent.duration * 60000
+                selectedEvent.duration * 60000,
             ),
             imageUrl: selectedEvent.imageUrl,
             price: selectedEvent.price,
