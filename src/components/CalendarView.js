@@ -9,7 +9,7 @@ import { fetchMeetings } from "../services/meetingService";
 import MeetingDetailsModal from "./MeetingDetailModal";
 import SkillLevelBadge from "../components/SkillLevelBadge";
 import Tag from "../components/Tag";
-import { Offcanvas, Button } from "react-bootstrap";
+import { Offcanvas, Button, Spinner, Alert } from "react-bootstrap";
 
 import WeeklyAgendaView from "../components/WeeklyAgendaView";
 import {
@@ -84,7 +84,11 @@ const CalendarView = () => {
   const [soloOnly, setSoloOnly] = useState(false);
 
   const [calendarDate, setCalendarDate] = useState(new Date());
-  const { data: meetings = [] } = useQuery({
+  const {
+    data: meetings = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["calendarData"],
     queryFn: fetchMeetings,
     staleTime: 300000,
@@ -284,6 +288,24 @@ const CalendarView = () => {
       </div>
     );
   };
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-5">
+        <Spinner animation="border" />
+        <p className="mt-3 mb-0">Ładowanie grafiku...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Alert variant="danger" className="text-center">
+        Nie udało się załadować grafiku.
+      </Alert>
+    );
+  }
+
   return (
     <div>
       {/* Legenda może zostać zawsze */}
