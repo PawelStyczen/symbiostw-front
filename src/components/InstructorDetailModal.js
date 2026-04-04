@@ -5,6 +5,7 @@ import { fetchInstructorById } from "../services/instructorService";
 import { StyledModal, StyledButton } from "./StyledComponents";
 import { useNavigate } from "react-router-dom";
 import SocialLinks from "./SocialLinks"; // <- make sure this path is correct
+import { SCHEDULE_PATH } from "../utils/contentRoutes";
 
 // tiny helper to fix backslashes and ensure protocol
 const normalizeUrl = (raw) => {
@@ -115,7 +116,7 @@ const InstructorDetailsModal = ({ show, onHide, instructorId, instructor }) => {
         <StyledButton
           variant="secondary"
           onClick={() =>
-            navigate("/schedule", {
+            navigate(SCHEDULE_PATH, {
               state: { instructorName: finalInstructor?.name },
             })
           }

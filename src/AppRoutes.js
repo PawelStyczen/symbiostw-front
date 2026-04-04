@@ -26,8 +26,12 @@ import NewsArticleDetailsPage from "./pages/NewsArticleDetailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import { fetchNewsArticleById } from "./services/NewsArticleService";
 import {
+  ABOUT_US_PATH,
+  CONTACT_PATH,
   getNewsArticlePath,
+  NEW_HERE_PATH,
   NEWS_PATH,
+  SCHEDULE_PATH,
   TYPE_OF_MEETINGS_PATH,
 } from "./utils/contentRoutes";
 
@@ -83,11 +87,11 @@ const AppRoutes = () => {
             </PublicRoute>
           }
         /> */}
-        <Route path="/NewHere" element={<NewHere />} />
+        <Route path={NEW_HERE_PATH} element={<NewHere />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/schedule" element={<Schedule />} />
+        <Route path={SCHEDULE_PATH} element={<Schedule />} />
         <Route path="/about" element={<div>About Us</div>} />
-        <Route path="/contact" element={<ContactPage />} />
+        <Route path={CONTACT_PATH} element={<ContactPage />} />
         <Route path="/locations" element={<LocationPage />} />
         <Route path={TYPE_OF_MEETINGS_PATH} element={<TypeOfMeetingPage />} />
         <Route
@@ -106,11 +110,19 @@ const AppRoutes = () => {
           path="/typesofmeetings/:slug"
           element={<LegacyTypeOfMeetingDetailRedirect />}
         />
-        <Route path="/AboutUsPage" element={<AboutUsPage />} />
+        <Route path={ABOUT_US_PATH} element={<AboutUsPage />} />
         <Route path={NEWS_PATH} element={<NewsArticlesPage />} />
         <Route
           path={`${NEWS_PATH}/:slug`}
           element={<NewsArticleDetailsPage />}
+        />
+        <Route path="/NewHere" element={<Navigate to={NEW_HERE_PATH} replace />} />
+        <Route path="/newhere" element={<Navigate to={NEW_HERE_PATH} replace />} />
+        <Route path="/schedule" element={<Navigate to={SCHEDULE_PATH} replace />} />
+        <Route path="/contact" element={<Navigate to={CONTACT_PATH} replace />} />
+        <Route
+          path="/AboutUsPage"
+          element={<Navigate to={ABOUT_US_PATH} replace />}
         />
         <Route path="/news" element={<Navigate to={NEWS_PATH} replace />} />
         <Route path="/News" element={<Navigate to={NEWS_PATH} replace />} />

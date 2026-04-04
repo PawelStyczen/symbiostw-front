@@ -1,5 +1,9 @@
 export const TYPE_OF_MEETINGS_PATH = "/oferta";
 export const NEWS_PATH = "/aktualnosci";
+export const SCHEDULE_PATH = "/grafik";
+export const ABOUT_US_PATH = "/onas";
+export const CONTACT_PATH = "/kontakt";
+export const NEW_HERE_PATH = "/jestemTuNowy";
 
 export const slugify = (value = "") =>
   value

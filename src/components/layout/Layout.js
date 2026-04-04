@@ -5,11 +5,12 @@ import AppNavbar from "./AppNavbar";
 import Footer from "./Footer";
 import ContactButtons from "../ContactButtons";
 import EventAnnouncementBar from "./EventAnnoucementBar";
+import { SCHEDULE_PATH } from "../../utils/contentRoutes";
 
 const Layout = ({ children, onLogout }) => {
   const location = useLocation();
 
-  const hideAnnouncementBar = location.pathname === "/schedule";
+  const hideAnnouncementBar = location.pathname === SCHEDULE_PATH;
 
   return (
     <>

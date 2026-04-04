@@ -8,6 +8,7 @@ import HighlightedNews from "../components/HighlightedNews";
 import { Link } from "react-router-dom";
 import { hexToRgba } from "../utils/colorUtils";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+import { NEW_HERE_PATH } from "../utils/contentRoutes";
 
 // Full-Screen Background (Stretches Across Entire Width)
 const StyledLogo = styled(Logo)`
@@ -207,7 +208,7 @@ const HomePage = () => {
         <HeroSubtitle>ALAN BANACH PRZEDSTAWIA</HeroSubtitle>
         <StyledLogo />
         <HeroSubtitle2>WIĘCEJ NIŻ TYLKO TANIEC</HeroSubtitle2>
-        <HeroButton to="/newhere">
+        <HeroButton to={NEW_HERE_PATH}>
           <IconBackground />
           <p>Jestem tu Nowy</p>
         </HeroButton>

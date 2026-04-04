@@ -15,6 +15,7 @@ import {
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { SCHEDULE_PATH } from "../utils/contentRoutes";
 
 const NewHere = () => {
   useEffect(() => {
@@ -56,7 +57,7 @@ const NewHere = () => {
             <ul>
               <li>
                 W Grafiku znajdź interesującą Cię grupę:{" "}
-                <Link to="/schedule">Grafik</Link>
+                <Link to={SCHEDULE_PATH}>Grafik</Link>
               </li>
               <li>
                 Obecnie Zapisy prowadzimy mailowo lub telefonicznie. Napisz do

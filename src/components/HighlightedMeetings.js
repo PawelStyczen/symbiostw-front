@@ -14,6 +14,7 @@ import MeetingDetailModal from "./MeetingDetailModal"; // Import the modal
 import Tag from "./Tag";
 
 import SkillLevelBadge from "./SkillLevelBadge";
+import { SCHEDULE_PATH } from "../utils/contentRoutes";
 
 const MeetingImage = styled.img`
   width: 100%;
@@ -181,7 +182,7 @@ const HighlightedMeetings = () => {
         ))
       )}
 
-      <StyledLink to="/schedule" align="right">
+      <StyledLink to={SCHEDULE_PATH} align="right">
         Zobacz cały Grafik
       </StyledLink>
 

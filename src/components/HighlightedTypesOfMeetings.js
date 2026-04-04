@@ -12,6 +12,7 @@ import {
 import StyledCarousel from "../components/StyledCarousel";
 import styled from "styled-components";
 import {
+  SCHEDULE_PATH,
   getTypeOfMeetingPath,
   TYPE_OF_MEETINGS_PATH,
 } from "../utils/contentRoutes";
@@ -88,7 +89,7 @@ const HighlightedTypesOfMeetings = () => {
                     }}
                     variant="secondary"
                     onClick={() =>
-                      navigate("/schedule", { state: { type: type.name } })
+                      navigate(SCHEDULE_PATH, { state: { type: type.name } })
                     }
                   >
                     Znajdź spotkania

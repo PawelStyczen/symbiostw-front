@@ -5,7 +5,14 @@ import { useAuth } from "../AuthProvider";
 import { useTheme } from "./ThemeProvider";
 import styled from "styled-components";
 import { hexToRgba } from "../../utils/colorUtils";
-import { NEWS_PATH, TYPE_OF_MEETINGS_PATH } from "../../utils/contentRoutes";
+import {
+  ABOUT_US_PATH,
+  CONTACT_PATH,
+  NEW_HERE_PATH,
+  NEWS_PATH,
+  SCHEDULE_PATH,
+  TYPE_OF_MEETINGS_PATH,
+} from "../../utils/contentRoutes";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import SocialLinks from "../SocialLinks";
 
@@ -149,10 +156,10 @@ const AppNavbar = ({ onLogout }) => {
               <Nav.Link onClick={() => handleNavClick("/HomePage")}>
                 Strona Główna
               </Nav.Link>
-              <Nav.Link onClick={() => handleNavClick("/AboutUsPage")}>
+              <Nav.Link onClick={() => handleNavClick(ABOUT_US_PATH)}>
                 O Nas
               </Nav.Link>
-              <Nav.Link onClick={() => handleNavClick("/contact")}>
+              <Nav.Link onClick={() => handleNavClick(CONTACT_PATH)}>
                 Kontakt
               </Nav.Link>
               <Nav.Link onClick={() => handleNavClick(NEWS_PATH)}>
@@ -176,10 +183,16 @@ const AppNavbar = ({ onLogout }) => {
         </Navbar.Offcanvas>
 
         <div className="d-flex gap-2 flex-row flex-lg-row ms-lg-3">
-          <DrawerButton variant="primary" onClick={() => navigate("/newhere")}>
+          <DrawerButton
+            variant="primary"
+            onClick={() => navigate(NEW_HERE_PATH)}
+          >
             Jestem tu nowy
           </DrawerButton>
-          <DrawerButton variant="primary" onClick={() => navigate("/schedule")}>
+          <DrawerButton
+            variant="primary"
+            onClick={() => navigate(SCHEDULE_PATH)}
+          >
             Grafik
           </DrawerButton>
         </div>

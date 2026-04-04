@@ -5,7 +5,10 @@ import { Spinner, Alert, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Tag from "../components/Tag";
-import { getTypeOfMeetingPath } from "../utils/contentRoutes";
+import {
+  getTypeOfMeetingPath,
+  SCHEDULE_PATH,
+} from "../utils/contentRoutes";
 
 import {
   StyledButton,
@@ -111,7 +114,7 @@ const TypeOfMeetingPage = () => {
                     <StyledButton
                       variant="secondary"
                       onClick={() =>
-                        navigate("/schedule", { state: { type: meeting.name } })
+                        navigate(SCHEDULE_PATH, { state: { type: meeting.name } })
                       }
                     >
                       Znajdź spotkania

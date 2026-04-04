@@ -12,6 +12,7 @@ import {
 } from "../components/StyledComponents";
 import {
   getTypeOfMeetingSlug,
+  SCHEDULE_PATH,
   TYPE_OF_MEETINGS_PATH,
 } from "../utils/contentRoutes";
 
@@ -111,7 +112,7 @@ const TypeOfMeetingDetailPage = () => {
       <ActionsRow>
         <StyledButton
           as={Link}
-          to="/schedule"
+          to={SCHEDULE_PATH}
           state={{ type: meetingType.name }}
           variant="secondary"
         >
