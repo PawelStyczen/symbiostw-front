@@ -1,11 +1,8 @@
 // src/AppRoutes.js
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+import { useQuery } from "@tanstack/react-query";
 
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -22,12 +19,46 @@ import Schedule from "./pages/Schedule";
 import ContactPage from "./pages/ContactPage";
 import LocationPage from "./pages/LocationPage";
 import TypeOfMeetingPage from "./pages/TypeOfMeetingPage";
+import TypeOfMeetingDetailPage from "./pages/TypeOfMeetingDetailPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import NewsArticlesPage from "./pages/NewsArticlePage";
 import NewsArticleDetailsPage from "./pages/NewsArticleDetailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import { fetchNewsArticleById } from "./services/NewsArticleService";
+import {
+  getNewsArticlePath,
+  NEWS_PATH,
+  TYPE_OF_MEETINGS_PATH,
+} from "./utils/contentRoutes";
 
 import { useAuth } from "./components/AuthProvider";
+
+const LegacyTypeOfMeetingDetailRedirect = () => {
+  const { slug } = useParams();
+  return <Navigate to={`${TYPE_OF_MEETINGS_PATH}/${slug}`} replace />;
+};
+
+const LegacyNewsArticleDetailRedirect = () => {
+  const { id } = useParams();
+  const { data: article, isLoading } = useQuery({
+    queryKey: ["newsArticle", id],
+    queryFn: () => fetchNewsArticleById(id),
+    enabled: Boolean(id),
+    staleTime: 300000,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
+  return (
+    <Navigate to={article ? getNewsArticlePath(article) : NEWS_PATH} replace />
+  );
+};
 
 const AppRoutes = () => {
   const { logout } = useAuth();
@@ -58,10 +89,35 @@ const AppRoutes = () => {
         <Route path="/about" element={<div>About Us</div>} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/locations" element={<LocationPage />} />
-        <Route path="/TypesOfMeetings" element={<TypeOfMeetingPage />} />
+        <Route path={TYPE_OF_MEETINGS_PATH} element={<TypeOfMeetingPage />} />
+        <Route
+          path={`${TYPE_OF_MEETINGS_PATH}/:slug`}
+          element={<TypeOfMeetingDetailPage />}
+        />
+        <Route
+          path="/TypesOfMeetings"
+          element={<Navigate to={TYPE_OF_MEETINGS_PATH} />}
+        />
+        <Route
+          path="/typesofmeetings"
+          element={<Navigate to={TYPE_OF_MEETINGS_PATH} />}
+        />
+        <Route
+          path="/typesofmeetings/:slug"
+          element={<LegacyTypeOfMeetingDetailRedirect />}
+        />
         <Route path="/AboutUsPage" element={<AboutUsPage />} />
-        <Route path="/news" element={<NewsArticlesPage />} />
-        <Route path="/news/:id" element={<NewsArticleDetailsPage />} />
+        <Route path={NEWS_PATH} element={<NewsArticlesPage />} />
+        <Route
+          path={`${NEWS_PATH}/:slug`}
+          element={<NewsArticleDetailsPage />}
+        />
+        <Route path="/news" element={<Navigate to={NEWS_PATH} replace />} />
+        <Route path="/News" element={<Navigate to={NEWS_PATH} replace />} />
+        <Route
+          path="/news/:id"
+          element={<LegacyNewsArticleDetailRedirect />}
+        />
         {/* <Route
           path="/dashboard"
           element={

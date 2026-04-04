@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTypeOfMeetings } from "../services/typeOfMeetingService";
-import { Container, Spinner, Alert, Row, Col } from "react-bootstrap";
+import { Spinner, Alert, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
-import TypeOfMeetingDetailsModal from "../components/TypeOfMeetingDetailsModal";
 import { useNavigate } from "react-router-dom";
 import Tag from "../components/Tag";
+import { getTypeOfMeetingPath } from "../utils/contentRoutes";
 
 import {
   StyledButton,
@@ -25,8 +25,6 @@ const ButtonRow = styled.div`
 
 const TypeOfMeetingPage = () => {
   const navigate = useNavigate();
-  const [selectedMeeting, setSelectedMeeting] = useState(null);
-  const [modalShow, setModalShow] = useState(false);
 
   const {
     data: typeOfMeetings = [],
@@ -41,16 +39,6 @@ const TypeOfMeetingPage = () => {
   const filteredMeetings = typeOfMeetings.filter(
     (meeting) => meeting.name !== "Indywidualne spotkanie | wolne miejsce"
   );
-
-  const handleOpenModal = (meeting) => {
-    setSelectedMeeting(meeting);
-    setModalShow(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalShow(false);
-    setSelectedMeeting(null);
-  };
 
   if (isLoading) {
     return (
@@ -130,7 +118,9 @@ const TypeOfMeetingPage = () => {
                     </StyledButton>
                     <StyledButton
                       variant="primary"
-                      onClick={() => handleOpenModal(meeting)}
+                      onClick={() =>
+                        navigate(getTypeOfMeetingPath(meeting))
+                      }
                     >
                       Szczegóły
                     </StyledButton>
@@ -141,15 +131,6 @@ const TypeOfMeetingPage = () => {
           ))
         ) : (
           <Alert variant="info">No meeting types available.</Alert>
-        )}
-
-        {/* Modal */}
-        {selectedMeeting && (
-          <TypeOfMeetingDetailsModal
-            show={modalShow}
-            onHide={handleCloseModal}
-            typeOfMeeting={selectedMeeting}
-          />
         )}
       </Row>
     </StyledContainer>

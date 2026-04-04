@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Spinner, Alert, Image } from "react-bootstrap";
-import { fetchNewsArticleById } from "../services/NewsArticleService";
+import { fetchNewsArticles } from "../services/NewsArticleService";
 import { fetchInstructorById } from "../services/instructorService";
 import NewsCommentsSection from "../components/NewsCommentsSection";
 import InstructorDetailsModal from "../components/InstructorDetailModal";
 import styled from "styled-components";
+import { getNewsArticleSlug } from "../utils/contentRoutes";
 
 const NewsContainer = styled.div`
   max-width: 900px;
@@ -55,7 +56,7 @@ const AuthorLink = styled.span`
 `;
 
 const NewsArticleDetailsPage = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -63,13 +64,29 @@ const NewsArticleDetailsPage = () => {
   const [creatorInstructor, setCreatorInstructor] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
+    setError(null);
+    setArticle(null);
+    setCreatorInstructor(null);
+
     const loadArticle = async () => {
       try {
-        const data = await fetchNewsArticleById(id);
-        setArticle(data);
+        const articles = await fetchNewsArticles();
+        const matchedArticle = articles.find(
+          (newsArticle) => getNewsArticleSlug(newsArticle) === slug
+        );
 
-        if (data.createdByName.toLowerCase() !== "admin") {
-          const instructorData = await fetchInstructorById(data.createdById);
+        if (!matchedArticle) {
+          setError("Article not found.");
+          return;
+        }
+
+        setArticle(matchedArticle);
+
+        if (matchedArticle.createdByName.toLowerCase() !== "admin") {
+          const instructorData = await fetchInstructorById(
+            matchedArticle.createdById
+          );
           setCreatorInstructor(instructorData);
         }
       } catch (err) {
@@ -80,7 +97,7 @@ const NewsArticleDetailsPage = () => {
     };
 
     loadArticle();
-  }, [id]);
+  }, [slug]);
 
   if (loading)
     return (
@@ -119,7 +136,7 @@ const NewsArticleDetailsPage = () => {
 
       <NewsContent dangerouslySetInnerHTML={{ __html: article.content }} />
 
-      {article.allowComments && <NewsCommentsSection articleId={id} />}
+      {article.allowComments && <NewsCommentsSection articleId={article.id} />}
 
       {creatorInstructor && (
         <InstructorDetailsModal

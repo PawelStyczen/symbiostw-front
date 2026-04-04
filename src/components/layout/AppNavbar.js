@@ -5,6 +5,7 @@ import { useAuth } from "../AuthProvider";
 import { useTheme } from "./ThemeProvider";
 import styled from "styled-components";
 import { hexToRgba } from "../../utils/colorUtils";
+import { NEWS_PATH, TYPE_OF_MEETINGS_PATH } from "../../utils/contentRoutes";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import SocialLinks from "../SocialLinks";
 
@@ -154,10 +155,10 @@ const AppNavbar = ({ onLogout }) => {
               <Nav.Link onClick={() => handleNavClick("/contact")}>
                 Kontakt
               </Nav.Link>
-              <Nav.Link onClick={() => handleNavClick("/news")}>
+              <Nav.Link onClick={() => handleNavClick(NEWS_PATH)}>
                 Aktualności
               </Nav.Link>
-              <Nav.Link onClick={() => handleNavClick("/TypesOfMeetings")}>
+              <Nav.Link onClick={() => handleNavClick(TYPE_OF_MEETINGS_PATH)}>
                 Oferta
               </Nav.Link>
             </Nav>

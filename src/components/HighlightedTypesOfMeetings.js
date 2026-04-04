@@ -7,12 +7,14 @@ import {
   StyledButton,
   StyledTitle,
   StyledLink,
-  StyledSubTitle,
   StyledCardImg,
 } from "../components/StyledComponents";
 import StyledCarousel from "../components/StyledCarousel";
-import TypeOfMeetingDetailsModal from "./TypeOfMeetingDetailsModal";
 import styled from "styled-components";
+import {
+  getTypeOfMeetingPath,
+  TYPE_OF_MEETINGS_PATH,
+} from "../utils/contentRoutes";
 
 const Description = styled.p`
   display: -webkit-box;
@@ -31,13 +33,10 @@ const ButtonRow = styled.div`
 
 const HighlightedTypesOfMeetings = () => {
   const navigate = useNavigate();
-  const [selectedMeeting, setSelectedMeeting] = useState(null);
 
   const [typesOfMeetings, setTypesOfMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedType, setSelectedType] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const loadTypesOfMeetings = async () => {
@@ -96,10 +95,7 @@ const HighlightedTypesOfMeetings = () => {
                   </StyledButton>
                   <StyledButton
                     $align="end"
-                    onClick={() => {
-                      setSelectedType(type);
-                      setModalOpen(true);
-                    }}
+                    onClick={() => navigate(getTypeOfMeetingPath(type))}
                   >
                     Szczegóły
                   </StyledButton>
@@ -110,17 +106,9 @@ const HighlightedTypesOfMeetings = () => {
         ))}
       </StyledCarousel>
 
-      <StyledLink to="/typesofmeetings" align="right">
+      <StyledLink to={TYPE_OF_MEETINGS_PATH} align="right">
         Cała oferta
       </StyledLink>
-
-      {modalOpen && (
-        <TypeOfMeetingDetailsModal
-          show={modalOpen}
-          onHide={() => setModalOpen(false)}
-          typeOfMeeting={selectedType}
-        />
-      )}
     </div>
   );
 };

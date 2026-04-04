@@ -12,6 +12,7 @@ import {
 } from "./StyledComponents";
 import styled from "styled-components";
 import StyledCarousel from "./StyledCarousel"; // Add this import
+import { getNewsArticlePath, NEWS_PATH } from "../utils/contentRoutes";
 
 const FullWidthContainer = styled.div`
   width: 100%;
@@ -109,7 +110,7 @@ const HighlightedNews = () => {
                     />
                     <StyledButton
                       $align="end"
-                      onClick={() => navigate(`/news/${article.id}`)}
+                      onClick={() => navigate(getNewsArticlePath(article))}
                     >
                       Więcej
                     </StyledButton>
@@ -152,7 +153,7 @@ const HighlightedNews = () => {
                   />
                   <StyledButton
                     $align="end"
-                    onClick={() => navigate(`/news/${article.id}`)}
+                    onClick={() => navigate(getNewsArticlePath(article))}
                   >
                     Więcej
                   </StyledButton>
@@ -162,7 +163,7 @@ const HighlightedNews = () => {
           </CardGrid>
         )}
       </NewsWrapper>
-      <StyledLink to="/News" align="right">
+      <StyledLink to={NEWS_PATH} align="right">
         Wszystkie Aktualności
       </StyledLink>
     </div>

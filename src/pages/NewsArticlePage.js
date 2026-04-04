@@ -9,6 +9,7 @@ import {
   StyledContainer,
 } from "../components/StyledComponents";
 import styled from "styled-components";
+import { getNewsArticlePath } from "../utils/contentRoutes";
 
 const NewsArticlesPage = () => {
   const [newsArticles, setNewsArticles] = useState([]);
@@ -86,7 +87,7 @@ const NewsArticlesPage = () => {
             />
             <StyledButton
               $align="end"
-              onClick={() => navigate(`/news/${article.id}`)}
+              onClick={() => navigate(getNewsArticlePath(article))}
             >
               Czytaj
             </StyledButton>

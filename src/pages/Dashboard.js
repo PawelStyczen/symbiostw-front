@@ -16,6 +16,7 @@ import EditUserModal from "../components/EditUserModal";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../components/AuthProvider";
+import { getNewsArticlePath, NEWS_PATH } from "../utils/contentRoutes";
 
 const Dashboard = () => {
   const { logout } = useAuth();
@@ -238,7 +239,15 @@ const Dashboard = () => {
                   <small className="text-muted mb-2">
                     {new Date(comment.createdDate).toLocaleString()}
                   </small>
-                  <Link to={`/news/${comment.newsArticleId}`}>
+                  <Link
+                    to={
+                      comment.newsArticleTitle
+                        ? getNewsArticlePath({
+                            title: comment.newsArticleTitle,
+                          })
+                        : NEWS_PATH
+                    }
+                  >
                     <StyledButton variant="primary" size="sm">
                       Go to Article
                     </StyledButton>
