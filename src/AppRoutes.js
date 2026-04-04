@@ -16,6 +16,7 @@ import LeaveMeetingPage from "./pages/LeaveMeetingPage";
 import HomePage from "./pages/HomePage";
 import NewHere from "./pages/NewHere";
 import Schedule from "./pages/Schedule";
+import MeetingDetailPage from "./pages/MeetingDetailPage";
 import ContactPage from "./pages/ContactPage";
 import LocationPage from "./pages/LocationPage";
 import TypeOfMeetingPage from "./pages/TypeOfMeetingPage";
@@ -29,6 +30,7 @@ import {
   ABOUT_US_PATH,
   CONTACT_PATH,
   getNewsArticlePath,
+  MEETING_DETAIL_BASE_PATH,
   NEW_HERE_PATH,
   NEWS_PATH,
   SCHEDULE_PATH,
@@ -90,6 +92,10 @@ const AppRoutes = () => {
         <Route path={NEW_HERE_PATH} element={<NewHere />} />
         <Route path="/home" element={<HomePage />} />
         <Route path={SCHEDULE_PATH} element={<Schedule />} />
+        <Route
+          path={`${MEETING_DETAIL_BASE_PATH}/:slug`}
+          element={<MeetingDetailPage />}
+        />
         <Route path="/about" element={<div>About Us</div>} />
         <Route path={CONTACT_PATH} element={<ContactPage />} />
         <Route path="/locations" element={<LocationPage />} />
