@@ -10,6 +10,7 @@ import {
   StyledSubTitle,
   StyledTitle,
 } from "../components/StyledComponents";
+import Tag from "../components/Tag";
 import {
   getTypeOfMeetingSlug,
   SCHEDULE_PATH,
@@ -25,6 +26,13 @@ const ActionsRow = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 2rem;
+`;
+
+const TagsRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 `;
 
 const BackLink = styled(Link)`
@@ -104,6 +112,11 @@ const TypeOfMeetingDetailPage = () => {
       <BackLink to={TYPE_OF_MEETINGS_PATH}>← Wroc do oferty</BackLink>
 
       <StyledTitle>{meetingType.name}</StyledTitle>
+
+      <TagsRow>
+        {meetingType.isIndividual && <Tag type="individual" />}
+        {meetingType.isSolo && <Tag type="solo" />}
+      </TagsRow>
 
       {meetingType.shortDescription && (
         <StyledSubTitle>{meetingType.shortDescription}</StyledSubTitle>

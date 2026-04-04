@@ -5,10 +5,7 @@ import { Spinner, Alert, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Tag from "../components/Tag";
-import {
-  getTypeOfMeetingPath,
-  SCHEDULE_PATH,
-} from "../utils/contentRoutes";
+import { getTypeOfMeetingPath } from "../utils/contentRoutes";
 
 import {
   StyledButton,
@@ -21,7 +18,7 @@ import {
 
 const ButtonRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   margin-top: auto;
 `;
@@ -67,7 +64,21 @@ const TypeOfMeetingPage = () => {
         {filteredMeetings.length > 0 ? (
           filteredMeetings.map((meeting) => (
             <Col key={meeting.id} md={4} className="mb-4">
-              <StyledCard key={meeting.id} $height="600px">
+              <StyledCard
+                key={meeting.id}
+                $height="600px"
+                role="link"
+                tabIndex={0}
+                onClick={() => navigate(getTypeOfMeetingPath(meeting))}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    navigate(getTypeOfMeetingPath(meeting));
+                  }
+                }}
+                style={{ cursor: "pointer" }}
+                aria-label={`Zobacz szczegóły: ${meeting.name}`}
+              >
                 <div style={{ position: "relative" }}>
                   {/* 🔖 Tags absolutely positioned in top-left */}
                   <div
@@ -112,20 +123,13 @@ const TypeOfMeetingPage = () => {
                   </p>
                   <ButtonRow>
                     <StyledButton
-                      variant="secondary"
-                      onClick={() =>
-                        navigate(SCHEDULE_PATH, { state: { type: meeting.name } })
-                      }
-                    >
-                      Znajdź spotkania
-                    </StyledButton>
-                    <StyledButton
                       variant="primary"
-                      onClick={() =>
-                        navigate(getTypeOfMeetingPath(meeting))
-                      }
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(getTypeOfMeetingPath(meeting));
+                      }}
                     >
-                      Szczegóły
+                      Zobacz szczegóły
                     </StyledButton>
                   </ButtonRow>
                 </StyledCard.Body>
