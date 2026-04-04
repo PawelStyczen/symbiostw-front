@@ -11,6 +11,20 @@ import {
 import styled from "styled-components";
 import { getNewsArticlePath } from "../utils/contentRoutes";
 
+const getCardInteractionProps = (article, navigate) => ({
+  role: "link",
+  tabIndex: 0,
+  onClick: () => navigate(getNewsArticlePath(article)),
+  onKeyDown: (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      navigate(getNewsArticlePath(article));
+    }
+  },
+  style: { cursor: "pointer" },
+  "aria-label": `Zobacz artykuł: ${article.title}`,
+});
+
 const NewsArticlesPage = () => {
   const [newsArticles, setNewsArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,6 +69,7 @@ const NewsArticlesPage = () => {
           $height="350px"
           key={article.id}
           className="mb-4"
+          {...getCardInteractionProps(article, navigate)}
         >
           {article.imageUrl && (
             <CardImg
@@ -87,9 +102,12 @@ const NewsArticlesPage = () => {
             />
             <StyledButton
               $align="end"
-              onClick={() => navigate(getNewsArticlePath(article))}
+              onClick={(event) => {
+                event.stopPropagation();
+                navigate(getNewsArticlePath(article));
+              }}
             >
-              Czytaj
+              Zobacz artykuł
             </StyledButton>
           </StyledCard.Body>
         </StyledCard>

@@ -45,6 +45,21 @@ const NewsContentPreview = styled.div`
     display: inline;
   }
 `;
+
+const getCardInteractionProps = (article, navigate) => ({
+  role: "link",
+  tabIndex: 0,
+  onClick: () => navigate(getNewsArticlePath(article)),
+  onKeyDown: (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      navigate(getNewsArticlePath(article));
+    }
+  },
+  style: { cursor: "pointer" },
+  "aria-label": `Zobacz artykuł: ${article.title}`,
+});
+
 const HighlightedNews = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -90,7 +105,7 @@ const HighlightedNews = () => {
           <StyledCarousel slidesToShow={3}>
             {news.map((article) => (
               <div key={article.id}>
-                <StyledCard>
+                <StyledCard {...getCardInteractionProps(article, navigate)}>
                   {article.imageUrl && (
                     <StyledCardImg
                       $imgHeight="300px"
@@ -110,9 +125,12 @@ const HighlightedNews = () => {
                     />
                     <StyledButton
                       $align="end"
-                      onClick={() => navigate(getNewsArticlePath(article))}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(getNewsArticlePath(article));
+                      }}
                     >
-                      Więcej
+                      Zobacz artykuł
                     </StyledButton>
                   </StyledCard.Body>
                 </StyledCard>
@@ -127,6 +145,7 @@ const HighlightedNews = () => {
                 $height="350px"
                 key={article.id}
                 className="mb-4"
+                {...getCardInteractionProps(article, navigate)}
               >
                 {article.imageUrl && (
                   <StyledCardImg
@@ -153,9 +172,12 @@ const HighlightedNews = () => {
                   />
                   <StyledButton
                     $align="end"
-                    onClick={() => navigate(getNewsArticlePath(article))}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(getNewsArticlePath(article));
+                    }}
                   >
-                    Więcej
+                    Zobacz artykuł
                   </StyledButton>
                 </StyledCard.Body>
               </StyledCard>
