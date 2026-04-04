@@ -88,6 +88,7 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
           as={Link}
           to={getMeetingDetailPath(meeting)}
           variant="secondary"
+          onClick={onHide}
         >
           Szczegóły
         </StyledButton>
