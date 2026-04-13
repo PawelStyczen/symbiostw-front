@@ -30,6 +30,7 @@ import ContactPage from "./pages/ContactPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import NewHere from "./pages/NewHere";
 import GoatCounter from "./components/GoatCounter";
+import CookieConsentProvider from "./components/CookieConsentProvider";
 
 import "./custom.scss";
 import Schedule from "./pages/Schedule";
@@ -50,11 +51,13 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AlertProvider>
           <Router>
-            <GoatCounter />
-            <AuthProvider>
-              <AlertComponent />
-              <AppRoutes />
-            </AuthProvider>
+            <CookieConsentProvider>
+              <GoatCounter />
+              <AuthProvider>
+                <AlertComponent />
+                <AppRoutes />
+              </AuthProvider>
+            </CookieConsentProvider>
           </Router>
         </AlertProvider>
       </QueryClientProvider>

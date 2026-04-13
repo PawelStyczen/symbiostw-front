@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { StyledContainer } from "../StyledComponents";
 import AppNavbar from "./AppNavbar";
+import CookieConsentBanner from "../CookieConsentBanner";
 import Footer from "./Footer";
 import ContactButtons from "../ContactButtons";
 import EventAnnouncementBar from "./EventAnnoucementBar";
@@ -18,6 +19,7 @@ const Layout = ({ children, onLogout }) => {
       {!hideAnnouncementBar && <EventAnnouncementBar />}
       <StyledContainer>{children}</StyledContainer>
       <Footer />
+      <CookieConsentBanner />
       <ContactButtons pageUsername="alantanczy" phone="+48666617974" />
     </>
   );

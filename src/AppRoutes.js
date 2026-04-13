@@ -18,6 +18,7 @@ import NewHere from "./pages/NewHere";
 import Schedule from "./pages/Schedule";
 import MeetingDetailPage from "./pages/MeetingDetailPage";
 import ContactPage from "./pages/ContactPage";
+import CookiesPolicyPage from "./pages/CookiesPolicyPage";
 import LocationPage from "./pages/LocationPage";
 import TypeOfMeetingPage from "./pages/TypeOfMeetingPage";
 import TypeOfMeetingDetailPage from "./pages/TypeOfMeetingDetailPage";
@@ -25,14 +26,17 @@ import AboutUsPage from "./pages/AboutUsPage";
 import NewsArticlesPage from "./pages/NewsArticlePage";
 import NewsArticleDetailsPage from "./pages/NewsArticleDetailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { fetchNewsArticleById } from "./services/NewsArticleService";
 import {
   ABOUT_US_PATH,
+  COOKIES_POLICY_PATH,
   CONTACT_PATH,
   getNewsArticlePath,
   MEETING_DETAIL_BASE_PATH,
   NEW_HERE_PATH,
   NEWS_PATH,
+  PRIVACY_POLICY_PATH,
   SCHEDULE_PATH,
   TYPE_OF_MEETINGS_PATH,
 } from "./utils/contentRoutes";
@@ -98,6 +102,8 @@ const AppRoutes = () => {
         />
         <Route path="/about" element={<div>About Us</div>} />
         <Route path={CONTACT_PATH} element={<ContactPage />} />
+        <Route path={PRIVACY_POLICY_PATH} element={<PrivacyPolicyPage />} />
+        <Route path={COOKIES_POLICY_PATH} element={<CookiesPolicyPage />} />
         <Route path="/locations" element={<LocationPage />} />
         <Route path={TYPE_OF_MEETINGS_PATH} element={<TypeOfMeetingPage />} />
         <Route

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Alert, Col, Image, Row, Spinner, Tab } from "react-bootstrap";
 import { Link, Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { fetchMeetingById } from "../services/meetingService";
 import { fetchTypeOfMeetingById } from "../services/typeOfMeetingService";
-import { fetchInstructorById } from "../services/instructorService";
+import { fetchPublicInstructorById } from "../services/instructorService";
 import {
   StyledButton,
   StyledContainer,
@@ -16,6 +16,7 @@ import Tag from "../components/Tag";
 import SkillLevelBadge from "../components/SkillLevelBadge";
 import MapEmbed from "../components/MapEmbed";
 import SocialLinks from "../components/SocialLinks";
+import GuestMeetingRegistrationModal from "../components/GuestMeetingRegistrationModal";
 import {
   getMeetingDetailPath,
   getMeetingIdFromSlug,
@@ -111,10 +112,11 @@ const TypeDescriptionContent = ({ typeOfMeetingId }) => {
   );
 };
 
-const InstructorTabContent = ({ instructorId }) => {
+const InstructorTabContent = ({ instructorId, isGuestInstructor }) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["instructor", instructorId],
-    queryFn: () => fetchInstructorById(instructorId),
+    queryKey: ["instructor", instructorId, isGuestInstructor],
+    queryFn: () =>
+      fetchPublicInstructorById(instructorId, isGuestInstructor),
     enabled: Boolean(instructorId),
     staleTime: 300000,
   });
@@ -169,6 +171,8 @@ const InstructorTabContent = ({ instructorId }) => {
 const MeetingDetailPage = () => {
   const { slug } = useParams();
   const meetingId = getMeetingIdFromSlug(slug);
+  const [showGuestRegistrationModal, setShowGuestRegistrationModal] =
+    useState(false);
 
   const {
     data: meeting,
@@ -239,9 +243,15 @@ const MeetingDetailPage = () => {
       </SummaryRow>
 
       <ActionsRow>
-        <StyledButton as="a" href={`tel:${RESERVATION_PHONE}`}>
-          Zadzwoń by zarezerwować
-        </StyledButton>
+        {meeting.isEvent ? (
+          <StyledButton onClick={() => setShowGuestRegistrationModal(true)}>
+            Zgłoś udział
+          </StyledButton>
+        ) : (
+          <StyledButton as="a" href={`tel:${RESERVATION_PHONE}`}>
+            Zadzwoń by zarezerwować
+          </StyledButton>
+        )}
       </ActionsRow>
 
       {meeting.imageUrl && (
@@ -282,7 +292,10 @@ const MeetingDetailPage = () => {
         </Tab>
 
         <Tab eventKey="instructor" title="Instruktor">
-          <InstructorTabContent instructorId={meeting.instructorId} />
+          <InstructorTabContent
+            instructorId={meeting.instructorId}
+            isGuestInstructor={meeting.isGuestInstructor}
+          />
         </Tab>
 
         <Tab eventKey="location" title="Dojazd">
@@ -334,6 +347,15 @@ const MeetingDetailPage = () => {
           </Row>
         </Tab>
       </StyledTabs>
+
+      {meeting.isEvent && (
+        <GuestMeetingRegistrationModal
+          show={showGuestRegistrationModal}
+          onHide={() => setShowGuestRegistrationModal(false)}
+          meetingId={meeting.id}
+          meetingTitle={meeting.typeOfMeetingName || meeting.name}
+        />
+      )}
     </DetailContainer>
   );
 };

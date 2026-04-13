@@ -24,6 +24,14 @@ export const fetchMeetingById = async (id) => {
   return response.data;
 };
 
+export const registerGuestForMeeting = async (meetingId, guestData) => {
+  const response = await api.post(
+    `/api/Public/PublicMeeting/${meetingId}/guest-registration`,
+    guestData
+  );
+  return response.data;
+};
+
 export const addParticipantToMeeting = async (meetingId) => {
   const response = await api.post("/api/Public/PublicMeeting/add-participant", {
     meetingId, // Send meetingId as DTO
