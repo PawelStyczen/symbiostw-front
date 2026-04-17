@@ -49,12 +49,7 @@ const GuestMeetingRegistrationModal = ({
 
     setFormData((current) => ({
       ...current,
-      [name]:
-        type === "checkbox"
-          ? name === "optOutNewsletter" || name === "optOutSmsMarketing"
-            ? !checked
-            : checked
-          : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -160,7 +155,7 @@ const GuestMeetingRegistrationModal = ({
               maxLength={32}
               placeholder={
                 phoneConsentsSelected
-                  ? "Wymagany, jeśli nie rezygnujesz z SMS"
+                  ? "Wymagany dla zaznaczonych zgód"
                   : "Opcjonalnie"
               }
               inputMode="tel"
@@ -168,7 +163,7 @@ const GuestMeetingRegistrationModal = ({
             />
             <Form.Text muted>
               Opcjonalnie. Możemy go użyć tylko do kontaktu organizacyjnego w
-              sprawie tego wydarzenia. Jeśli nie zrezygnujesz z informacji SMS,
+              sprawie tego wydarzenia. Jeśli zaznaczysz zgodę na newsletter SMS,
               numer będzie wymagany.
             </Form.Text>
           </Form.Group>
@@ -176,20 +171,20 @@ const GuestMeetingRegistrationModal = ({
           <Form.Group className="mb-2" controlId="guest-registration-news">
             <Form.Check
               type="checkbox"
-              name="optOutNewsletter"
-              checked={!formData.allowNewsletter}
+              name="allowNewsletter"
+              checked={formData.allowNewsletter}
               onChange={handleChange}
-              label="Nie chcę otrzymywać informacji e-mail"
+              label="Chcę otrzymywać informacje e-mail"
             />
           </Form.Group>
 
           <Form.Group className="mb-2" controlId="guest-registration-sms">
             <Form.Check
               type="checkbox"
-              name="optOutSmsMarketing"
-              checked={!formData.allowSmsMarketing}
+              name="allowSmsMarketing"
+              checked={formData.allowSmsMarketing}
               onChange={handleChange}
-              label="Nie chcę otrzymywać newslettera i informacji marketingowych SMS"
+              label="Chcę otrzymywać newsletter i informacje marketingowe SMS"
             />
           </Form.Group>
 
