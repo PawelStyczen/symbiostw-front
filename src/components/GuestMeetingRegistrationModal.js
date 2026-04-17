@@ -38,10 +38,10 @@ const GuestMeetingRegistrationModal = ({
 
   const helperText = useMemo(() => {
     if (!meetingTitle) {
-      return "Zgłoszenie zostanie dodane jako oczekujące na akceptację.";
+      return "Zgłoszenie zostanie dodane jako oczekujące na akceptację, dalsza komunikacja będzie wysłana drogą e-mail.";
     }
 
-    return `Zgłoszenie na wydarzenie "${meetingTitle}" zostanie dodane jako oczekujące na akceptację.`;
+    return `Zgłoszenie na wydarzenie "${meetingTitle}" zostanie dodane jako oczekujące na akceptację, dalsza komunikacja będzie wysłana drogą e-mail.`;
   }, [meetingTitle]);
 
   const handleChange = (event) => {
@@ -96,7 +96,7 @@ const GuestMeetingRegistrationModal = ({
   return (
     <StyledModal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Zgłoszenie gościa</Modal.Title>
+        <Modal.Title>Zapis na wydarzenie</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="mb-4">{helperText}</p>
@@ -174,7 +174,7 @@ const GuestMeetingRegistrationModal = ({
               name="allowNewsletter"
               checked={formData.allowNewsletter}
               onChange={handleChange}
-              label="Chcę otrzymywać newsletter e-mail"
+              label="Chcę otrzymywać informacje e-mail"
             />
           </Form.Group>
 

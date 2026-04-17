@@ -93,7 +93,17 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
                 <strong>Miejscowość:</strong> {meeting.locationCity}
               </p>
             )}
-            {meeting.locationDescription && <p>{meeting.locationDescription}</p>}
+            {meeting.locationDescription && (
+              <p>{meeting.locationDescription}</p>
+            )}
+
+            {meeting.price !== null &&
+              meeting.price !== undefined &&
+              meeting.price !== 0 && (
+                <p>
+                  <strong>Cena:</strong> {meeting.price} PLN
+                </p>
+              )}
           </SummaryList>
         </Modal.Body>
         <Modal.Footer className="d-flex gap-2 justify-content-end">
