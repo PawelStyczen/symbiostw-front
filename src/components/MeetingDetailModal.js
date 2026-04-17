@@ -27,6 +27,7 @@ const TagsRow = styled.div`
 const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
   const [showGuestRegistrationModal, setShowGuestRegistrationModal] =
     useState(false);
+  const hasPrice = Number(meeting.price) > 0;
 
   const handleClose = () => {
     setShowGuestRegistrationModal(false);
@@ -97,13 +98,11 @@ const MeetingDetailsModal = ({ show, onHide, meeting, isUserParticipant }) => {
               <p>{meeting.locationDescription}</p>
             )}
 
-            {meeting.price !== null &&
-              meeting.price !== undefined &&
-              meeting.price !== 0 && (
-                <p>
-                  <strong>Cena:</strong> {meeting.price} PLN
-                </p>
-              )}
+            {hasPrice && (
+              <p>
+                <strong>Cena:</strong> {meeting.price} PLN
+              </p>
+            )}
           </SummaryList>
         </Modal.Body>
         <Modal.Footer className="d-flex gap-2 justify-content-end">

@@ -115,8 +115,7 @@ const TypeDescriptionContent = ({ typeOfMeetingId }) => {
 const InstructorTabContent = ({ instructorId, isGuestInstructor }) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["instructor", instructorId, isGuestInstructor],
-    queryFn: () =>
-      fetchPublicInstructorById(instructorId, isGuestInstructor),
+    queryFn: () => fetchPublicInstructorById(instructorId, isGuestInstructor),
     enabled: Boolean(instructorId),
     staleTime: 300000,
   });
@@ -227,6 +226,8 @@ const MeetingDetailPage = () => {
     return <Navigate to={canonicalPath} replace />;
   }
 
+  const hasPrice = Number(meeting.price) > 0;
+
   return (
     <DetailContainer>
       <BackLink to={SCHEDULE_PATH}>← Wróć do grafiku</BackLink>
@@ -282,6 +283,11 @@ const MeetingDetailPage = () => {
             {meeting.locationCity && (
               <p>
                 <strong>Miejscowość:</strong> {meeting.locationCity}
+              </p>
+            )}
+            {hasPrice && (
+              <p>
+                <strong>Cena:</strong> {meeting.price} PLN
               </p>
             )}
           </InfoList>
