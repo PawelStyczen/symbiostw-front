@@ -9,8 +9,8 @@ const initialFormData = {
   surname: "",
   email: "",
   phoneNumber: "",
-  allowNewsletter: false,
-  allowSmsMarketing: false,
+  allowNewsletter: true,
+  allowSmsMarketing: true,
 };
 
 const GuestMeetingRegistrationModal = ({
@@ -49,7 +49,12 @@ const GuestMeetingRegistrationModal = ({
 
     setFormData((current) => ({
       ...current,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? name === "optOutNewsletter" || name === "optOutSmsMarketing"
+            ? !checked
+            : checked
+          : value,
     }));
   };
 
@@ -155,7 +160,7 @@ const GuestMeetingRegistrationModal = ({
               maxLength={32}
               placeholder={
                 phoneConsentsSelected
-                  ? "Wymagany dla zaznaczonych zgód"
+                  ? "Wymagany, jeśli nie rezygnujesz z SMS"
                   : "Opcjonalnie"
               }
               inputMode="tel"
@@ -163,7 +168,7 @@ const GuestMeetingRegistrationModal = ({
             />
             <Form.Text muted>
               Opcjonalnie. Możemy go użyć tylko do kontaktu organizacyjnego w
-              sprawie tego wydarzenia. Jeśli zaznaczysz zgodę na newsletter SMS,
+              sprawie tego wydarzenia. Jeśli nie zrezygnujesz z informacji SMS,
               numer będzie wymagany.
             </Form.Text>
           </Form.Group>
@@ -171,20 +176,20 @@ const GuestMeetingRegistrationModal = ({
           <Form.Group className="mb-2" controlId="guest-registration-news">
             <Form.Check
               type="checkbox"
-              name="allowNewsletter"
-              checked={formData.allowNewsletter}
+              name="optOutNewsletter"
+              checked={!formData.allowNewsletter}
               onChange={handleChange}
-              label="Chcę otrzymywać informacje e-mail"
+              label="Nie chcę otrzymywać informacji e-mail"
             />
           </Form.Group>
 
           <Form.Group className="mb-2" controlId="guest-registration-sms">
             <Form.Check
               type="checkbox"
-              name="allowSmsMarketing"
-              checked={formData.allowSmsMarketing}
+              name="optOutSmsMarketing"
+              checked={!formData.allowSmsMarketing}
               onChange={handleChange}
-              label="Chcę otrzymywać newsletter i informacje marketingowe SMS"
+              label="Nie chcę otrzymywać newslettera i informacji marketingowych SMS"
             />
           </Form.Group>
 
