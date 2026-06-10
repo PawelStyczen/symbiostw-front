@@ -1283,7 +1283,7 @@ const NewRecruitmentLandingPage = () => {
                   Dołącz do naszej społeczności.
                 </PrimaryButton>
                 <SecondaryOutlineButton type="button" onClick={scrollToIntro}>
-                  Dowiedz sie więcej
+                  Dowiedz się więcej
                 </SecondaryOutlineButton>
               </HeroActions>
             </HeroCopy>
@@ -1392,7 +1392,7 @@ const NewRecruitmentLandingPage = () => {
             <FormHeader>
               <FormTitle>
                 Zostaw kontakt,
-                <FormAccent>a my odezwiemy sie do Ciebie</FormAccent>
+                <FormAccent>a my odezwiemy się do Ciebie</FormAccent>
               </FormTitle>
             </FormHeader>
 
@@ -1475,7 +1475,7 @@ const NewRecruitmentLandingPage = () => {
                   checked={formData.chceOtrzymywacEmailMarketing}
                   onChange={handleChange}
                 />
-                Chce otrzymywac newsletter i informacje marketingowe EMAIL.
+                Chce otrzymywać newsletter i informacje marketingowe EMAIL.
               </ConsentField>
 
               <ConsentField>
@@ -1485,7 +1485,7 @@ const NewRecruitmentLandingPage = () => {
                   checked={formData.chceOtrzymywacNewsletterISmsMarketing}
                   onChange={handleChange}
                 />
-                Chce otrzymywac newsletter i informacje marketingowe SMS.
+                Chce otrzymywać newsletter i informacje marketingowe SMS.
               </ConsentField>
 
               <Field>
@@ -1499,10 +1499,10 @@ const NewRecruitmentLandingPage = () => {
               </Field>
 
               <FormButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Wysylanie..." : "Wyslij zgloszenie"}
+                {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
               </FormButton>
               <FormNote>
-                Po wyslaniu formularza odezwiemy sie, zeby pomoc dobrac
+                Po wysłaniu formularza odezwiemy się, zeby pomoc dobrac
                 odpowiednia grupe i odpowiedziec na pytania.
               </FormNote>
 
