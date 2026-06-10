@@ -1387,7 +1387,7 @@ const NewRecruitmentLandingPage = () => {
             <FormCard onSubmit={handleSubmit}>
               <FieldGrid>
                 <Field>
-                  Imie
+                  Imię
                   <Input
                     type="text"
                     name="imie"
@@ -1439,14 +1439,14 @@ const NewRecruitmentLandingPage = () => {
 
               <FieldGrid>
                 <Field>
-                  Interesujaca grupa
+                  Interesująca grupa
                   <Select
                     name="grupa"
                     value={formData.grupa}
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Wybierz grupe</option>
+                    <option value="">Wybierz grupę</option>
                     {leadGroupOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -1477,12 +1477,12 @@ const NewRecruitmentLandingPage = () => {
               </ConsentField>
 
               <Field>
-                Dodatkowa wiadomosc
+                Dodatkowa wiadomość
                 <TextArea
                   name="dodatkowaWiadomosc"
                   value={formData.dodatkowaWiadomosc}
                   onChange={handleChange}
-                  placeholder="Np. interesuja mnie zajecia dla corki, najlepiej po 17:00"
+                  placeholder="Np. interesują mnie zajecia dla córki, najlepiej po 17:00"
                 />
               </Field>
 
@@ -1490,8 +1490,8 @@ const NewRecruitmentLandingPage = () => {
                 {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
               </FormButton>
               <FormNote>
-                Po wysłaniu formularza odezwiemy się, żeby pomoc dobrac
-                odpowiednia grupe i odpowiedziec na pytania.
+                Po wysłaniu formularza odezwiemy się, żeby pomóc dobrać
+                odpowiednią grupę i odpowiedzieć na pytania.
               </FormNote>
 
               {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
