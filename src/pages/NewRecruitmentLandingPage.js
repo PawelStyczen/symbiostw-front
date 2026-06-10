@@ -11,21 +11,24 @@ import adultsOfferImage from "../assets/images/landingPage/ludzie.jpeg";
 const reasons = [
   {
     title: "Bezpieczny start",
-    text: "Od pierwszych kroków dbamy o dobrą atmosferę i komfort naszych kursantów. Najmłodsi tancerze są pod opieką Joli — uśmiechniętej instruktorki i pedagoga edukacji przedszkolnej.",
+    text: "Od pierwszych kroków dbamy o dobrą atmosferę i komfort naszych kursantów. Najmłodsi tancerze są pod opieką Joli naszej uśmiechniętej instruktorki i pedagoga edukacji przedszkolnej.",
     image: childrenOfferImage,
     imageAlt: "Placeholder dla bezpiecznego startu",
+    imagePosition: "center top",
   },
   {
     title: "Rozwój przez wsparcie",
     text: "Uczymy techniki, rytmu i pewności siebie w atmosferze, która naprawdę daje frajdę z tańca.",
     image: youthOfferImage,
     imageAlt: "Placeholder dla rozwoju przez wsparcie",
+    imagePosition: "center 30%",
   },
   {
     title: "Społeczność i wspólna pasja",
     text: "Dbamy o to, by każdy czuł się tu dobrze. Organizujemy wspólne wyjścia, imprezy i warsztaty, które pomagają budować fajną taneczną społeczność.",
     image: adultsOfferImage,
     imageAlt: "Placeholder dla spolecznosci i wspolnej pasji",
+    imagePosition: "center top",
   },
 ];
 
@@ -299,6 +302,7 @@ const WhyGrid = styled.div`
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-top: 2rem;
+    overflow: visible;
   }
 `;
 
@@ -330,7 +334,7 @@ const WhyCard = styled.article`
     border-color 0.25s ease;
 
   &::before {
-    content: ${({ $step }) => `"0${$step}"`};
+    content: ${({ $step }) => `"${$step}"`};
     position: absolute;
     right: 0.6rem;
     bottom: -0.7rem;
@@ -340,6 +344,7 @@ const WhyCard = styled.article`
     line-height: 0.8;
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
   }
 
   &::after {
@@ -359,18 +364,11 @@ const WhyCard = styled.article`
     z-index: 2;
   }
 
-  &:hover {
-    transform: rotate(var(--card-rotate))
-      translateY(calc(var(--card-offset) - 0.45rem)) scale(1.015);
-    border-color: rgba(159, 89, 101, 0.18);
-    box-shadow: 0 24px 54px rgba(58, 41, 39, 0.14);
-  }
-
   @media (max-width: 900px) {
     --card-rotate: 0deg;
     --card-offset: 0rem;
 
-    overflow: visible;
+    overflow: hidden;
     &::after {
       display: none;
     }
@@ -409,7 +407,7 @@ const WhyImage = styled.img`
   width: 100%;
   height: 260px;
   object-fit: cover;
-  object-position: top;
+  object-position: ${({ $position }) => $position || "center top"};
   display: block;
   filter: saturate(0.92) contrast(1.04) brightness(0.98);
 
@@ -515,6 +513,7 @@ const VideoCard = styled.div`
 const VideoWrap = styled.div`
   position: relative;
   width: 100%;
+  height: 740px;
 
   margin: 0 auto;
   padding-top: 120%;
@@ -524,6 +523,10 @@ const VideoWrap = styled.div`
 
   @media (min-width: 992px) {
     padding-top: 104%;
+  }
+
+  @media (max-width: 980px) {
+    height: 100%;
   }
 
   iframe {
@@ -559,10 +562,10 @@ const OfferGrid = styled.div`
   color: white;
 
   &::before {
-    content: "nabór";
+    content: "symbio 2026";
     position: absolute;
-    right: -1.2rem;
-    bottom: -1rem;
+    right: 5rem;
+    bottom: 50%;
     color: rgba(255, 255, 255, 0.045);
     font-family: "Sisterhood", cursive;
     font-size: clamp(7rem, 16vw, 15rem);
@@ -575,12 +578,12 @@ const OfferCard = styled.article`
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 5rem minmax(0, 1fr);
   gap: 1.1rem;
   align-items: center;
   padding: 1.35rem;
   border-radius: 32px;
   background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(3px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 
   & + & {
@@ -588,22 +591,8 @@ const OfferCard = styled.article`
   }
 
   @media (max-width: 720px) {
-    grid-template-columns: 1fr;
     gap: 0.8rem;
   }
-`;
-
-const OfferIndex = styled.div`
-  width: 4.2rem;
-  height: 4.2rem;
-  display: grid;
-  place-items: center;
-  border-radius: 24px;
-  background: rgba(194, 209, 201, 0.18);
-  color: #f4efe7;
-  font-size: 1.35rem;
-  font-weight: 900;
-  box-shadow: inset 0 0 0 1px rgba(194, 209, 201, 0.28);
 `;
 
 const OfferTitle = styled.h3`
@@ -1294,8 +1283,8 @@ const NewRecruitmentLandingPage = () => {
             Szkoła tańca, w której łatwo poczuć, że to Twoje miejsce
           </SectionTitle>
           <SectionLead>
-            Stawiamy na dobra atmosfere, madrze prowadzony rozwoj i grupy, ktore
-            sa dopasowane do wieku oraz poziomu.{" "}
+            Stawiamy na dobrą atmosferę, mądrze prowadzony rozwój i grupy, które
+            są dopasowane do wieku oraz poziomu.{" "}
             <b>Tu znajdziesz miejsce dla siebie.</b>
           </SectionLead>
 
@@ -1303,11 +1292,15 @@ const NewRecruitmentLandingPage = () => {
             {reasons.map((reason, index) => (
               <WhyCard key={reason.title} $step={index + 1}>
                 <WhyImageWrap>
-                  <WhyImage src={reason.image} alt={reason.imageAlt} />
+                  <WhyImage
+                    src={reason.image}
+                    alt={reason.imageAlt}
+                    $position={reason.imagePosition}
+                  />
                 </WhyImageWrap>
                 <WhyIndex>
                   <StepIcon aria-hidden="true" />
-                  Krok {String(index + 1).padStart(2, "0")}
+                  Krok {index + 1}
                 </WhyIndex>
                 <WhyTitle>{reason.title}</WhyTitle>
                 <WhyText>{reason.text}</WhyText>
@@ -1325,8 +1318,8 @@ const NewRecruitmentLandingPage = () => {
                 <SectionLabel>Zobacz klimat</SectionLabel>
                 <SectionTitle>Poczuj energię zajęć</SectionTitle>
                 <SectionLead>
-                  Pozytywna atmosfera na sali i styl pracy, ktory sprawia, źe
-                  taniec stanie się czymś wiecej niź tylko kolejnym treningiem.
+                  Pozytywną atmosferę na sali i styl pracy, który sprawia, że
+                  taniec stanie się czymś wiecej niż tylko kolejnym treningiem.
                 </SectionLead>
               </div>
             </VideoCopy>
@@ -1334,9 +1327,9 @@ const NewRecruitmentLandingPage = () => {
             <VideoCard>
               <VideoWrap>
                 <iframe
-                  src="https://www.instagram.com/reel/DN0B_GX2jSi/embed"
-                  title="Symbio - Instagram reel"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1031668133133726&show_text=false&width=500"
+                  title="Symbio - Facebook reel"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 />
@@ -1351,14 +1344,13 @@ const NewRecruitmentLandingPage = () => {
           <SectionLabel>Nowy nabór</SectionLabel>
           <SectionTitle>Ruszamy z zapisami na nowe zajecia</SectionTitle>
           <SectionLead>
-            To <b>idealny moment zeby dołączyć</b> do naszej tanecznej
+            To <b>idealny moment żeby dołączyć</b> do naszej tanecznej
             społeczności. Niezależnie od wieku czy poziomu.
           </SectionLead>
 
           <OfferGrid>
-            {programs.map((program, index) => (
+            {programs.map((program) => (
               <OfferCard key={program.title}>
-                <OfferIndex>{String(index + 1).padStart(2, "0")}</OfferIndex>
                 <div>
                   <OfferTitle>{program.title}</OfferTitle>
                   <TagWrap>
@@ -1388,7 +1380,7 @@ const NewRecruitmentLandingPage = () => {
             <FormHeader>
               <FormTitle>
                 Zostaw kontakt,
-                <FormAccent>a my odezwiemy się do Ciebie</FormAccent>
+                <FormAccent>a my zadzwonimy do Ciebie</FormAccent>
               </FormTitle>
             </FormHeader>
 
@@ -1498,7 +1490,7 @@ const NewRecruitmentLandingPage = () => {
                 {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
               </FormButton>
               <FormNote>
-                Po wysłaniu formularza odezwiemy się, zeby pomoc dobrac
+                Po wysłaniu formularza odezwiemy się, żeby pomoc dobrac
                 odpowiednia grupe i odpowiedziec na pytania.
               </FormNote>
 
