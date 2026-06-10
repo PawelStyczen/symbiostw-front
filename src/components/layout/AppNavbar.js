@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container, Button, Offcanvas } from "react-bootstrap";
-import { useAuth } from "../AuthProvider";
-import { useTheme } from "./ThemeProvider";
 import styled from "styled-components";
 import { hexToRgba } from "../../utils/colorUtils";
 import {
   ABOUT_US_PATH,
   CONTACT_PATH,
   NEW_HERE_PATH,
+  NEW_RECRUITMENT_PATH,
   NEWS_PATH,
   SCHEDULE_PATH,
   TYPE_OF_MEETINGS_PATH,
 } from "../../utils/contentRoutes";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
 import SocialLinks from "../SocialLinks";
 
 // Glassmorphism + tiny mobile polish
@@ -23,7 +21,8 @@ const GlassNavbar = styled(Navbar)`
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(112, 125, 115, 0.3);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12),
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12),
     inset 0 0 10px rgba(255, 255, 255, 0.08);
 
   .navbar-brand {
@@ -52,14 +51,6 @@ const GlassNavbar = styled(Navbar)`
   @media (max-width: 576px) {
     padding-top: 0.35rem;
     padding-bottom: 0.35rem;
-  }
-`;
-
-const StyledLogo = styled(Logo)`
-  width: 90px;
-  height: auto;
-  @media (max-width: 576px) {
-    width: 72px;
   }
 `;
 
@@ -102,15 +93,52 @@ const DrawerButton = styled(Button)`
   }
 `;
 
+const LandingBrand = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: #b44f66;
+
+  &:hover {
+    color: #b44f66;
+  }
+`;
+
+const LandingBrandText = styled.span`
+  font-family: "Sisterhood", cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+`;
+
+const SmallCTAButton = styled(Button)`
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  white-space: nowrap;
+
+  @media (max-width: 576px) {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+  }
+`;
+
 const AppNavbar = ({ onLogout }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
-  const { isDarkMode, toggleTheme } = useTheme();
+  const location = useLocation();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const isRecruitmentLanding = location.pathname === NEW_RECRUITMENT_PATH;
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
+  const scrollToLandingForm = () => {
+    const formElement = document.getElementById("landing-lead-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    navigate(`${NEW_RECRUITMENT_PATH}#landing-lead-form`);
   };
 
   const handleNavClick = (path) => {
@@ -119,6 +147,22 @@ const AppNavbar = ({ onLogout }) => {
   };
 
   const offId = "main-nav-offcanvas";
+
+  if (isRecruitmentLanding) {
+    return (
+      <GlassNavbar expand="lg" fixed="top">
+        <Container className="d-flex align-items-center justify-content-between">
+          <LandingBrand to="/home" aria-label="Symbio - strona glowna">
+            <LandingBrandText>symbio</LandingBrandText>
+          </LandingBrand>
+
+          <SmallCTAButton variant="primary" onClick={scrollToLandingForm}>
+            Dołącz do nas
+          </SmallCTAButton>
+        </Container>
+      </GlassNavbar>
+    );
+  }
 
   return (
     <GlassNavbar expand="lg" fixed="top">

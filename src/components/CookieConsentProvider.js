@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 const COOKIE_CONSENT_STORAGE_KEY = "symbio-cookie-consent";
-const COOKIE_CONSENT_VERSION = 1;
+const COOKIE_CONSENT_VERSION = 2;
 
 const CookieConsentContext = createContext(null);
 
@@ -32,8 +32,9 @@ const readStoredConsent = () => {
   }
 };
 
-const createConsentPayload = (analytics) => ({
+const createConsentPayload = ({ analytics, marketing }) => ({
   analytics,
+  marketing,
   necessary: true,
   version: COOKIE_CONSENT_VERSION,
   decidedAt: new Date().toISOString(),
@@ -43,8 +44,8 @@ export const CookieConsentProvider = ({ children }) => {
   const [consent, setConsent] = useState(() => readStoredConsent());
   const [isBannerOpen, setIsBannerOpen] = useState(false);
 
-  const saveConsent = (analytics) => {
-    const nextConsent = createConsentPayload(analytics);
+  const saveConsent = ({ analytics, marketing }) => {
+    const nextConsent = createConsentPayload({ analytics, marketing });
 
     setConsent(nextConsent);
     setIsBannerOpen(false);
@@ -57,8 +58,11 @@ export const CookieConsentProvider = ({ children }) => {
     }
   };
 
-  const acceptAnalytics = () => saveConsent(true);
-  const rejectOptional = () => saveConsent(false);
+  const acceptAll = () => saveConsent({ analytics: true, marketing: true });
+  const acceptAnalytics = () =>
+    saveConsent({ analytics: true, marketing: false });
+  const rejectOptional = () =>
+    saveConsent({ analytics: false, marketing: false });
   const openPreferences = () => setIsBannerOpen(true);
   const closePreferences = () => setIsBannerOpen(false);
 
@@ -66,6 +70,7 @@ export const CookieConsentProvider = ({ children }) => {
     consent,
     hasAnswered: Boolean(consent?.decidedAt),
     isBannerVisible: isBannerOpen || !consent?.decidedAt,
+    acceptAll,
     acceptAnalytics,
     rejectOptional,
     openPreferences,

@@ -1,7 +1,7 @@
 import React from "react";
 import LegalDocumentPage from "../components/LegalDocumentPage";
 
-const LAST_UPDATED = "13 kwietnia 2026";
+const LAST_UPDATED = "10 czerwca 2026";
 
 const sections = [
   {
@@ -19,6 +19,7 @@ const sections = [
       "Przy zgłoszeniu gościa na wydarzenie: imię, nazwisko, adres e-mail, opcjonalnie numer telefonu oraz wybrane zgody marketingowe e-mail lub SMS.",
       "Przy założeniu konta lub aktualizacji profilu, jeśli ta funkcja jest aktywna: imię, nazwisko, miasto, ulica, adres e-mail oraz hasło zapisane i obsługiwane po stronie backendu.",
       "Przy korzystaniu z serwisu: dane o aktywności w serwisie, adres IP, podstawowe logi techniczne, informacje o urządzeniu i przeglądarce oraz identyfikatory zapisane lokalnie w przeglądarce, takie jak token sesji po zalogowaniu lub ustawienie motywu.",
+      "Przy korzystaniu z podstrony kampanii /nowy-nabor, po udzieleniu zgody marketingowej: informacje o wyświetleniu strony kampanii oraz zdarzeniu Lead po poprawnym wysłaniu formularza, bez przekazywania do Meta treści formularza, imienia, nazwiska, adresu e-mail ani numeru telefonu.",
     ],
   },
   {
@@ -27,6 +28,7 @@ const sections = [
       "Obsługa zgłoszeń na wydarzenia, kontakt organizacyjny i realizacja usług dostępnych w serwisie na podstawie art. 6 ust. 1 lit. b RODO.",
       "Prowadzenie korespondencji, obsługa zapytań i zapewnienie bieżącej komunikacji na podstawie art. 6 ust. 1 lit. f RODO, czyli naszego prawnie uzasadnionego interesu.",
       "Wysyłka newslettera lub informacji marketingowych e-mail albo SMS wyłącznie na podstawie udzielonej zgody, czyli art. 6 ust. 1 lit. a RODO.",
+      "Pomiar skuteczności kampanii reklamowej na podstronie /nowy-nabor przy użyciu Meta Pixel wyłącznie na podstawie zgody marketingowej, czyli art. 6 ust. 1 lit. a RODO.",
       "Zapewnienie bezpieczeństwa serwisu, wykrywanie nadużyć, prowadzenie kopii zapasowych i logów technicznych na podstawie art. 6 ust. 1 lit. f RODO.",
       "Wypełnianie obowiązków prawnych, jeśli wynikają z przepisów podatkowych, rachunkowych lub dotyczących dochodzenia roszczeń, na podstawie art. 6 ust. 1 lit. c RODO.",
     ],
@@ -35,6 +37,7 @@ const sections = [
     title: "4. Infrastruktura i odbiorcy danych",
     paragraphs: [
       "Serwis korzysta z zaplecza technicznego opartego o Microsoft Azure, w tym Azure Functions i Azure SQL. Dane mogą być powierzane podmiotom wspierającym nas w utrzymaniu hostingu, poczty, infrastruktury IT, analityki oraz komunikacji elektronicznej, wyłącznie w zakresie niezbędnym do realizacji wskazanych celów.",
+      "Jeżeli użytkownik wyrazi zgodę marketingową na podstronie kampanii, w zakresie pomiaru kampanii odbiorcą danych może być Meta Platforms Ireland Limited jako dostawca narzędzia Meta Pixel.",
       "Jeżeli w przyszłości uruchomimy dodatkowe usługi, na przykład płatności online lub nowe kanały komunikacji, odpowiednie informacje zostaną przekazane w procesie korzystania z danej funkcji lub przez aktualizację niniejszej polityki.",
     ],
   },

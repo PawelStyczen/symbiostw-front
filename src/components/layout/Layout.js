@@ -6,21 +6,28 @@ import CookieConsentBanner from "../CookieConsentBanner";
 import Footer from "./Footer";
 import ContactButtons from "../ContactButtons";
 import EventAnnouncementBar from "./EventAnnoucementBar";
-import { SCHEDULE_PATH } from "../../utils/contentRoutes";
+import {
+  NEW_RECRUITMENT_PATH,
+  SCHEDULE_PATH,
+} from "../../utils/contentRoutes";
 
 const Layout = ({ children, onLogout }) => {
   const location = useLocation();
+  const isRecruitmentLanding = location.pathname === NEW_RECRUITMENT_PATH;
 
-  const hideAnnouncementBar = location.pathname === SCHEDULE_PATH;
+  const hideAnnouncementBar =
+    location.pathname === SCHEDULE_PATH || isRecruitmentLanding;
 
   return (
     <>
       <AppNavbar onLogout={onLogout} />
       {!hideAnnouncementBar && <EventAnnouncementBar />}
-      <StyledContainer>{children}</StyledContainer>
+      {isRecruitmentLanding ? children : <StyledContainer>{children}</StyledContainer>}
       <Footer />
       <CookieConsentBanner />
-      <ContactButtons pageUsername="alantanczy" phone="+48666617974" />
+      {!isRecruitmentLanding && (
+        <ContactButtons pageUsername="alantanczy" phone="+48666617974" />
+      )}
     </>
   );
 };

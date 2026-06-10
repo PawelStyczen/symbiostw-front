@@ -4,6 +4,7 @@ export const SCHEDULE_PATH = "/grafik";
 export const ABOUT_US_PATH = "/onas";
 export const CONTACT_PATH = "/kontakt";
 export const NEW_HERE_PATH = "/jestemTuNowy";
+export const NEW_RECRUITMENT_PATH = "/nowy-nabor";
 export const PRIVACY_POLICY_PATH = "/polityka-prywatnosci";
 export const COOKIES_POLICY_PATH = "/polityka-cookies";
 export const MEETING_DETAIL_PATH_SEGMENT = "spotkanie";
