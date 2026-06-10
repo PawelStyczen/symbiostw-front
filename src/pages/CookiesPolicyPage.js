@@ -1,7 +1,7 @@
 import React from "react";
 import LegalDocumentPage from "../components/LegalDocumentPage";
 
-const LAST_UPDATED = "13 kwietnia 2026";
+const LAST_UPDATED = "10 czerwca 2026";
 
 const sections = [
   {
@@ -15,6 +15,7 @@ const sections = [
     items: [
       "Niezbędne dane lokalne w przeglądarce, w szczególności zapis ustawienia motywu strony oraz danych sesyjnych po zalogowaniu, jeśli funkcja logowania jest aktywna.",
       "Narzędzie analityczne GoatCounter wykorzystywane do tworzenia zagregowanych statystyk odwiedzin. W obecnej integracji narzędzie to nie zapisuje identyfikatorów użytkownika w cookies ani localStorage po stronie przeglądarki.",
+      "Meta Pixel wykorzystywany wyłącznie na podstronie kampanii /nowy-nabor, po udzieleniu zgody marketingowej, do pomiaru wyświetlenia strony kampanii oraz zdarzenia Lead po poprawnym wysłaniu formularza.",
       "Standardowe dane techniczne przekazywane w żądaniach HTTP, takie jak adres IP, informacje o przeglądarce czy adres odwiedzanej podstrony, które mogą trafiać do logów serwera lub narzędzi bezpieczeństwa.",
     ],
   },
@@ -24,13 +25,14 @@ const sections = [
       "Zapewnienie prawidłowego działania serwisu i utrzymanie sesji użytkownika.",
       "Zapamiętanie ustawień interfejsu, na przykład wybranego motywu.",
       "Tworzenie statystyk odwiedzin i ocena działania strony w ujęciu zbiorczym.",
+      "Pomiar skuteczności kampanii reklamowej prowadzącej do formularza na podstronie /nowy-nabor, jeśli użytkownik wyraził zgodę marketingową.",
       "Zapewnienie bezpieczeństwa, stabilności i wykrywanie nadużyć.",
     ],
   },
   {
-    title: "4. Jakie technologie nie są obecnie wykorzystywane",
+    title: "4. Zakres narzędzi marketingowych",
     paragraphs: [
-      "Na podstawie aktualnej wersji serwisu nie wykorzystujemy własnych reklamowych cookies, pikseli remarketingowych ani narzędzi do profilowania reklamowego użytkowników. Jeżeli to się zmieni, zaktualizujemy niniejszą politykę oraz mechanizmy zgód, jeżeli będą wymagane.",
+      "Meta Pixel jest ograniczony do podstrony kampanii /nowy-nabor i nie jest uruchamiany na pozostałych podstronach serwisu. Pixel nie uruchamia się bez zgody marketingowej zapisanej w bannerze cookies.",
     ],
   },
   {

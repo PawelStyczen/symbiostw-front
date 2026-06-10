@@ -82,8 +82,7 @@ const InlineLink = styled(Link)`
 const CookieConsentBanner = () => {
   const {
     isBannerVisible,
-    acceptAnalytics,
-    rejectOptional,
+    acceptAll,
     closePreferences,
     hasAnswered,
   } = useCookieConsent();
@@ -97,18 +96,16 @@ const CookieConsentBanner = () => {
       <Title>Szanujemy Twoją prywatność</Title>
       <Text>
         Używamy niezbędnych danych lokalnych do działania strony oraz
-        opcjonalnej analityki odwiedzin. Analityka pomoże nam rozwijać serwis,
-        ale możesz z niej zrezygnować. Szczegóły znajdziesz w{" "}
+        opcjonalnej analityki odwiedzin. Za Twoją zgodą możemy też używać
+        narzędzi marketingowych, takich jak Meta Pixel na stronie kampanii,
+        żeby mierzyć skuteczność reklam. Szczegóły znajdziesz w{" "}
         <InlineLink to={COOKIES_POLICY_PATH}>polityce cookies</InlineLink> i{" "}
         <InlineLink to={PRIVACY_POLICY_PATH}>polityce prywatności</InlineLink>.
       </Text>
 
       <Actions>
-        <ActionButton type="button" $primary onClick={acceptAnalytics}>
-          Akceptuję analityczne
-        </ActionButton>
-        <ActionButton type="button" onClick={rejectOptional}>
-          Tylko niezbędne
+        <ActionButton type="button" $primary onClick={acceptAll}>
+          Akceptuję
         </ActionButton>
       </Actions>
 

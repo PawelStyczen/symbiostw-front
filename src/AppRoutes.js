@@ -27,6 +27,7 @@ import NewsArticlesPage from "./pages/NewsArticlePage";
 import NewsArticleDetailsPage from "./pages/NewsArticleDetailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import NewRecruitmentLandingPage from "./pages/NewRecruitmentLandingPage";
 import { fetchNewsArticleById } from "./services/NewsArticleService";
 import {
   ABOUT_US_PATH,
@@ -35,6 +36,7 @@ import {
   getNewsArticlePath,
   MEETING_DETAIL_BASE_PATH,
   NEW_HERE_PATH,
+  NEW_RECRUITMENT_PATH,
   NEWS_PATH,
   PRIVACY_POLICY_PATH,
   SCHEDULE_PATH,
@@ -94,6 +96,10 @@ const AppRoutes = () => {
           }
         /> */}
         <Route path={NEW_HERE_PATH} element={<NewHere />} />
+        <Route
+          path={NEW_RECRUITMENT_PATH}
+          element={<NewRecruitmentLandingPage />}
+        />
         <Route path="/home" element={<HomePage />} />
         <Route path={SCHEDULE_PATH} element={<Schedule />} />
         <Route
@@ -130,6 +136,10 @@ const AppRoutes = () => {
         />
         <Route path="/NewHere" element={<Navigate to={NEW_HERE_PATH} replace />} />
         <Route path="/newhere" element={<Navigate to={NEW_HERE_PATH} replace />} />
+        <Route
+          path="/nowynabor"
+          element={<Navigate to={NEW_RECRUITMENT_PATH} replace />}
+        />
         <Route path="/schedule" element={<Navigate to={SCHEDULE_PATH} replace />} />
         <Route path="/contact" element={<Navigate to={CONTACT_PATH} replace />} />
         <Route

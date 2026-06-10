@@ -31,6 +31,7 @@ import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import NewHere from "./pages/NewHere";
 import GoatCounter from "./components/GoatCounter";
 import CookieConsentProvider from "./components/CookieConsentProvider";
+import MetaPixel from "./components/MetaPixel";
 
 import "./custom.scss";
 import Schedule from "./pages/Schedule";
@@ -53,6 +54,7 @@ const App = () => {
           <Router>
             <CookieConsentProvider>
               <GoatCounter />
+              <MetaPixel />
               <AuthProvider>
                 <AlertComponent />
                 <AppRoutes />
