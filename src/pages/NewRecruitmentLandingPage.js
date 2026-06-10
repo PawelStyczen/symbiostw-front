@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useCookieConsent } from "../components/CookieConsentProvider";
 import MapEmbed from "../components/MapEmbed";
 import { createLead } from "../services/leadService";
 import { trackMetaLead } from "../utils/metaPixel";
@@ -1095,7 +1094,6 @@ const NewRecruitmentLandingPage = () => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const { consent } = useCookieConsent();
 
   useEffect(() => {
     document.body.style.backgroundColor = "#f4efe7";
@@ -1238,9 +1236,7 @@ const NewRecruitmentLandingPage = () => {
       setIsSubmitting(true);
       setSubmitError("");
       await createLead(leadPayload);
-      if (consent?.marketing) {
-        trackMetaLead();
-      }
+      trackMetaLead();
       setIsSuccessModalOpen(true);
       setFormData(initialLeadFormData);
     } catch (error) {
@@ -1550,6 +1546,7 @@ const NewRecruitmentLandingPage = () => {
             </SuccessModalClose>
 
             <SuccessModalContent>
+              <SuccessDanceIcon aria-hidden="true" />
               <SuccessModalLabel>Zgłoszenie wysłane</SuccessModalLabel>
               <SuccessModalTitle id="lead-success-title">
                 Dziękujemy za kontakt
@@ -1558,12 +1555,13 @@ const NewRecruitmentLandingPage = () => {
                 </SuccessModalAccent>
               </SuccessModalTitle>
               <SuccessModalText>
-                w kierunku naszej społeczności. Wkrótce skontaktujemy się z Tobą
-                i pomożemy dobrać najlepszą grupę.
+                Wykonałeś właśnie pierwszy taneczny krok w kierunku naszej
+                społeczności. Wkrótce skontaktujemy się z Tobą i pomożemy dobrać
+                najlepszą grupę.
               </SuccessModalText>
               <SuccessModalText>
-                W tym czasie zajrzyj do nas na www.symbiostw.pl, i zobacz, co u
-                nas słychać 🎶
+                W tym czasie zajrzyj do nas na www.symbiostw.pl i zobacz, co u
+                nas słychać.
               </SuccessModalText>
 
               <SuccessModalActions>

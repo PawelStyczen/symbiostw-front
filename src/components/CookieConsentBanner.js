@@ -96,9 +96,9 @@ const CookieConsentBanner = () => {
       <Title>Szanujemy Twoją prywatność</Title>
       <Text>
         Używamy niezbędnych danych lokalnych do działania strony oraz
-        opcjonalnej analityki odwiedzin. Za Twoją zgodą możemy też używać
-        narzędzi marketingowych, takich jak Meta Pixel na stronie kampanii,
-        żeby mierzyć skuteczność reklam. Szczegóły znajdziesz w{" "}
+        opcjonalnej analityki odwiedzin. Na stronie kampanii możemy też używać
+        narzędzi marketingowych, takich jak Meta Pixel, żeby mierzyć skuteczność
+        reklam. Szczegóły znajdziesz w{" "}
         <InlineLink to={COOKIES_POLICY_PATH}>polityce cookies</InlineLink> i{" "}
         <InlineLink to={PRIVACY_POLICY_PATH}>polityce prywatności</InlineLink>.
       </Text>
