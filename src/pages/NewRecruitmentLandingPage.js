@@ -47,7 +47,7 @@ const programs = [
   },
   {
     title: "Taniec dla dorosłych",
-    details: ["bachata", "towarzyski", "uzytkowy", "solo"],
+    details: ["bachata", "towarzyski", "użytkowy", "solo"],
     image: adultsOfferImage,
     imageAlt: "Dorosli podczas zajec tanecznych",
   },
@@ -1265,7 +1265,7 @@ const NewRecruitmentLandingPage = () => {
               </HeroProgramList>
               <HeroActions>
                 <PrimaryButton type="button" onClick={scrollToForm}>
-                  Dołącz do naszej społeczności.
+                  Dołącz do naszej społeczności
                 </PrimaryButton>
                 <SecondaryOutlineButton type="button" onClick={scrollToIntro}>
                   Dowiedz się więcej
